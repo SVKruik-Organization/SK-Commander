@@ -1,13 +1,44 @@
 :root {
-    --main: #ffffff;
-    --accent: red;
+    --main: #212528;
+    --sub: #2B2F31;
+    --accent: #E2C631;
+    --splitter: #ffffff1a;
+    --black: #1B1B1B;
+
+    --font: #ffffff;
+    --font-l: #ffffffe6;
+    --font-el: #ffffffb3;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 700;
+    border-radius: 15px;
+}
+
+body {
+    background-color: var(--main);
+}
+
+nav {
+    background-color: var(--sub);
+}
+
+h1 {
+    font-size: 32px;
+}
+
+h2 {
+    font-size: 16px;
+}
+
+p {
+    font-size: 13px;
 }
 
 button, a {
     cursor: pointer;
-}
-
-#placeholer {
-    background-color: red;
-    border-radius: 10px;
+    border: none;
 }

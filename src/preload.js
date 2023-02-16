@@ -5,3 +5,5 @@ contextBridge.exposeInMainWorld('versions', {
   chrome: () => process.versions.chrome,
   electron: () => process.versions.electron,
 });
+
+console.log("Preload Script Loaded.");

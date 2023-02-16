@@ -11,6 +11,7 @@ const createWindow = () => {
             sandbox: false,
             spellcheck: true,
         },
+        autoHideMenuBar: true,
         webPreferences: {
             preload: path.join(__dirname, '/preload.js'),
         },
@@ -26,9 +27,9 @@ app.setUserTasks([
         iconPath: process.execPath,
         iconIndex: 0,
         title: 'New Window',
-        description: 'Create a new window'
+        description: 'Opens a new window'
     }
-])
+]);
 
 app.whenReady().then(() => {
     createWindow();
