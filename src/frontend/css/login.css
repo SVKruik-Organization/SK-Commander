@@ -1,3 +1,104 @@
-body {
-    background-color: var(--main);
+.login-container {
+    width: 260px;
+    height: 375px;
+    margin: auto;
+    margin-top: 110px;
+    background-color: var(--sub);
+}
+
+.inner-container {
+    width: 210px;
+    margin: auto;
+}
+
+.title-container {
+    width: 100%;
+    margin: auto;
+}
+
+.title-container h1 {
+    padding-top: 20px;
+    color: var(--font);
+    text-align: center;
+}
+
+.title-container p {
+    color: var(--accent-a);
+    margin-top: -10px;
+    margin-bottom: 50px;
+    margin-left: 6px;
+}
+
+.input-container,
+.submit-container {
+    width: 175px;
+    margin: auto;
+}
+
+.tag-input,
+.pin-input {
+    border: 1px solid var(--accent-a);
+    width: 100%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.pin-input input {
+    margin-left: 10px;
+}
+
+.tag-input {
+    margin-bottom: 25px;
+}
+
+.input-container input {
+    height: 100%;
+    color: var(--accent-a);
+}
+
+.input-container i {
+    color: var(--font-exl);
+    margin-left: 5px;
+    width: 16px;
+    display: block;
+}
+
+#eye {
+    position: relative;
+    margin-left: -20px;
+}
+
+#key {
+    margin-right: -5px;
+}
+
+.pin-reset,
+.account-create {
+    color: var(--font-el);
+    font-weight: 400;
+    font-size: 10px;
+    text-align: center;
+}
+
+.account-create {
+    text-align: center;
+    margin-left: 0px;
+}
+
+.submit-button {
+    margin-top: 35px;
+    width: 175px;
+    background: url('../img/border.jpg') no-repeat;
+    background-color: var(--accent-a);
+    background-size: cover;
+    height: 40px;
+}
+
+.submit-label {
+    width: 100%;
+    color: var(--black);
+    font-size: 16px;
 }

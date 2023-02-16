@@ -6,15 +6,42 @@
   <link rel="stylesheet" href="./default.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/386dc5a5b8.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./../default.css">
   <link rel="stylesheet" href="./../css/login.css">
   <script defer src="./../script.js"></script>
+  <script type="module" src="../database.js"></script>
   <title>Bot Config - Login</title>
 </head>
 
 <body>
-  <button id="placeholder">Click Me!</button>
+  <div class="login-container">
+    <div class="inner-container">
+      <div class="title-container">
+        <h1>Welcome back</h1>
+        <p>Sign in to continue</p>
+      </div>
+      <div class="input-container">
+        <div class="tag-input">
+          <i class="fa-solid fa-user"></i>
+          <input id="usertag" type="text" placeholder="Tag">
+        </div>
+        <div class="pin-input">
+          <i id="key" class="fa-solid fa-key"></i>
+          <input id="pincode" type="password" placeholder="Pincode" pattern="[0-9]+" maxlength="4" inputmode="numeric">
+          <button onclick="switchEye()"><i id="eye" class="fa-solid fa-eye"></i></button>
+        </div>
+        <p class="pin-reset">Forgot pincode? Use /pincode.</p>
+      </div>
+      <div class="submit-container">
+        <button class="submit-button" onclick="login()">
+          <p class="submit-label">LOGIN</p>
+        </button>
+        <p class="account-create">New here? Use /register.</p>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

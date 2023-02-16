@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, shell } = require('electron');
 const path = require('path');
 
 const createWindow = () => {
@@ -17,7 +17,11 @@ const createWindow = () => {
         },
     });
 
-    win.loadFile('./frontend/index.html');
+    win.loadFile('./frontend/html/login.html');
+    win.webContents.setWindowOpenHandler(({ url }) => {
+        shell.openExternal(url);
+        return { action: 'deny' };
+    });
 };
 
 app.setUserTasks([
