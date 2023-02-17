@@ -57,3 +57,7 @@ input {
     color: var(--accent-a);
     outline: none;
 }
+
+li {
+    list-style: none;
+}

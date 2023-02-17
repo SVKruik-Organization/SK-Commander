@@ -17,7 +17,7 @@ const createWindow = () => {
         },
     });
 
-    win.loadFile('./frontend/html/login.html');
+    win.loadFile('./frontend/html/links.html');
     win.webContents.setWindowOpenHandler(({ url }) => {
         shell.openExternal(url);
         return { action: 'deny' };
@@ -28,7 +28,7 @@ app.setUserTasks([
     {
         program: process.execPath,
         arguments: '--new-window',
-        iconPath: process.execPath,
+        iconPath: './frontend/img/border.jpg',
         iconIndex: 0,
         title: 'New Window',
         description: 'Opens a new window'
