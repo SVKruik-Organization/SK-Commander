@@ -17,23 +17,12 @@ const createWindow = () => {
         },
     });
 
-    win.loadFile('./frontend/html/links.html');
+    win.loadFile('./frontend/html/statistics.html');
     win.webContents.setWindowOpenHandler(({ url }) => {
         shell.openExternal(url);
         return { action: 'deny' };
     });
 };
-
-app.setUserTasks([
-    {
-        program: process.execPath,
-        arguments: '--new-window',
-        iconPath: './frontend/img/border.jpg',
-        iconIndex: 0,
-        title: 'New Window',
-        description: 'Opens a new window'
-    }
-]);
 
 app.whenReady().then(() => {
     createWindow();

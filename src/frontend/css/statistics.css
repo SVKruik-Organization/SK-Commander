@@ -1,0 +1,16 @@
+.category-list {
+    margin-bottom: -60px;
+}
+
+.category-splitter {
+    margin-top: 70px;
+    margin-bottom: -110px;
+}
+
+.parent-container li {
+    width: 120px;
+}
+
+.category-item.value {
+    color: var(--font-el);
+}

@@ -1,11 +1,11 @@
-.links-container {
+.parent-container {
     width: 560px;
     height: 440px;
     background-color: var(--sub);
     margin: auto;
 }
 
-.links-container li {
+.parent-container li {
     font-size: 13px;
     line-height: 20px;
     width: 200px;
@@ -38,12 +38,10 @@
 }
 
 .category-splitter {
-    border-top: 1px solid var(--font-exl);
-    height: 5px;
-    width: 200px;
+    border-top: 2px solid var(--font-exl);
+    width: 250px;
     margin: auto;
     margin-top: 30px;
     margin-left: 18px;
     margin-bottom: -60px;
-    border-radius: 0px;
 }
