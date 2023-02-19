@@ -1,7 +1,7 @@
 .parent-container {
     width: 560px;
     height: 440px;
-    background-color: var(--sub);
+    background-color: var(--sub-a);
     margin: auto;
 }
 
@@ -14,7 +14,6 @@
 
 .category-container {
     display: flex;
-    flex-direction: row;
     height: 150px;
     margin-left: 18px;
     align-items: flex-end;

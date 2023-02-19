@@ -1,6 +1,7 @@
 :root {
     --main: #212528;
-    --sub: #333739;
+    --sub-a: #333739;
+    --sub-b: #2B2F31;
     --accent-a: #E2C631;
     --accent-b: #9C8716;
     --splitter: #ffffff33;
@@ -25,7 +26,7 @@ body {
 }
 
 nav {
-    background-color: var(--sub);
+    background-color: var(--sub-b);
 }
 
 h1 {
@@ -48,12 +49,12 @@ button, a {
 }
 
 button {
-    background-color: var(--sub);
+    background-color: var(--sub-a);
 }
 
 input {
     border: none;
-    background-color: var(--sub);
+    background-color: var(--sub-a);
     color: var(--accent-a);
     outline: none;
 }

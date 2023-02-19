@@ -6,10 +6,7 @@ const createWindow = () => {
         width: 800,
         height: 600,
         webPreferences: {
-            nodeIntegration: true,
-            nodeIntegrationInWorker: true,
-            sandbox: false,
-            spellcheck: true,
+            preload: path.join(app.getAppPath(), 'preload.js')
         },
         autoHideMenuBar: true,
         webPreferences: {
@@ -17,7 +14,7 @@ const createWindow = () => {
         },
     });
 
-    win.loadFile('./frontend/html/statistics.html');
+    win.loadFile('./frontend/index.html');
     win.webContents.setWindowOpenHandler(({ url }) => {
         shell.openExternal(url);
         return { action: 'deny' };

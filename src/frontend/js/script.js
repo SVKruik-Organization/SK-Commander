@@ -1,5 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Frontend Script Loaded.");
+    console.log("Frontend Script Complete.");
+
+    const path = window.location.href.slice(-15);
+    const style = "2px solid var(--accent-a);"
+    console.log(document.querySelector('.active-index'))
+
+    if (path == "tend/index.html") {
+    } else if (path == "html/links.html") {
+
+    } else if (path == "statistics.html") {
+
+    }
 });
 
 function switchEye() {
@@ -21,6 +32,4 @@ function login() {
     if (tag.value.length < 7 || pin.value.length != 4) {
         console.log("Input Error")
     };
-
-
 };
