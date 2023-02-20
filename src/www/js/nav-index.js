@@ -1,4 +1,4 @@
-fetch("../frontend/html/components/index-nav.html")
+fetch("../www/html/components/index-nav.html")
     .then(response => {
         return response.text();
     }).then(data => {

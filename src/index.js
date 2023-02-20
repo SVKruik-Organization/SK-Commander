@@ -1,30 +1,67 @@
-const { app, BrowserWindow, shell } = require('electron');
-const path = require('path');
+const { app, BrowserWindow, shell, session } = require('electron');
+const mysql = require('mysql2');
 
+const database = mysql.createPool({
+    host: process.env.HOST,
+    user: process.env.USER,
+    database: process.env.DATABASE,
+    password: process.env.PASSWORD
+});
+
+database.promise()
+    .execute("SHOW databases")
+    .then(() => {
+        console.log("\nDatabase connection established.\n");
+    }).catch((err) => {
+        console.log("[ERROR] Connecting to the database went wrong.", err);
+        process.exit();
+    });
+
+let win;
 const createWindow = () => {
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 800,
         height: 600,
-        webPreferences: {
-            preload: path.join(app.getAppPath(), 'preload.js')
-        },
         autoHideMenuBar: true,
         webPreferences: {
-            preload: path.join(__dirname, '/preload.js'),
+            nodeIntegration: true,
+            contextIsolation: false,
+            sandbox: true
         },
     });
 
-    win.loadFile('./frontend/index.html');
-    win.webContents.setWindowOpenHandler(({ url }) => {
-        shell.openExternal(url);
-        return { action: 'deny' };
-    });
+    win.loadFile('./www/index.html');
 };
+
+app.on('web-contents-created', (event, contents) => {
+    contents.setWindowOpenHandler(({ url }) => {
+        if (isSafeForExternalOpen(url)) {
+            setImmediate(() => {
+                shell.openExternal(url)
+            })
+        };
+        return { action: 'deny' }
+    });
+});
 
 app.whenReady().then(() => {
     createWindow();
+
+    session
+        .fromPartition('some-partition')
+        .setPermissionRequestHandler((webContents, permission, callback) => {
+            const parsedUrl = new URL(webContents.getURL())
+            if (permission === 'notifications') {
+                callback(true)
+            }
+
+            if (parsedUrl.protocol !== 'https:') {
+                return callback(false)
+            }
+        });
 });
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
 });
+

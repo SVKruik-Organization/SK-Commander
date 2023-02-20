@@ -3,9 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const path = window.location.href.slice(-15);
     const style = "2px solid var(--accent-a);"
-    console.log(document.querySelector('.active-index'))
+    console.log()
 
     if (path == "tend/index.html") {
+        document.querySelector('.active-index').style.borderBottom = style
     } else if (path == "html/links.html") {
 
     } else if (path == "statistics.html") {
