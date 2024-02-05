@@ -35,7 +35,7 @@ export default {
                             </div>
                         </div>
                         <a href="https://github.com/SVKruik/Discord-Bots-v2" target="_blank" class="faded-text small">
-                        Forgot password?</a>
+                            Forgot your password?</a>
                     </div>
                 </div>
                 <section class="submit-container">

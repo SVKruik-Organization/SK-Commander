@@ -1,13 +1,32 @@
 <script lang='js'>
 
 export default {
-    name: "UserSettings"
+    name: "UserSettings",
+    props: {
+        guild: Object
+    },
+    methods: {
+        save(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            const icon = document.getElementById(iconId);
+            if (!icon) return;
+            icon.classList.remove("visible");
+
+            // TODO - Database Update
+        },
+        change(iconId) {
+            const icon = document.getElementById(iconId);
+            if (!icon) return;
+            icon.classList.add("visible");
+        }
+    }
 };
 </script>
 
 <template>
-    <div>
-        <p>User Settings</p>
+    <div class="content-container">
+        <p>User Settings - WIP {{ this.guild }}</p>
     </div>
 </template>
 

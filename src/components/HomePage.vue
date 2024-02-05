@@ -1,7 +1,12 @@
 <script lang='js'>
 
 export default {
-    name: "HomePage"
+    name: "HomePage",
+    data() {
+        return {
+            activeGuild: {}
+        }
+    }
 };
 </script>
 
@@ -23,10 +28,14 @@ export default {
                 <span class="splitter shadow"></span>
                 <router-link class="menu-item text-shadow" to="/home/economy">Economy</router-link>
                 <span class="splitter shadow"></span>
+                <router-link class="menu-item text-shadow" to="/home/level">Level</router-link>
+                <span class="splitter shadow"></span>
                 <router-link class="menu-item text-shadow" to="/home/users">Users</router-link>
+                <span class="splitter shadow"></span>
+                <router-link class="menu-item text-shadow" to="/home/information">Information</router-link>
             </div>
             <span class="splitter-accent"></span>
-            <router-view></router-view>
+            <router-view :guild="this.activeGuild"></router-view>
         </section>
         <router-link to="/">Login</router-link>
     </div>
@@ -47,34 +56,9 @@ export default {
     gap: 10px;
 }
 
-.select-wrapper {
-    position: relative;
-    display: flex;
-    width: 200px;
-    align-items: center;
-    border-radius: var(--border-radius-mid);
-    border: 1px solid var(--font-light);
-    background-color: var(--fill);
-    justify-content: flex-end;
-    height: 30px;
-    box-sizing: border-box;
-}
-
-select {
-    width: 190px;
-    position: absolute;
-    z-index: 1;
-}
-
-.select-icon {
-    color: var(--font-light);
-    position: absolute;
-    width: 20px;
-}
-
 .settings-container {
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
     background-color: var(--fill);
     border-radius: var(--border-radius-high);
     height: 440px;
@@ -86,6 +70,7 @@ select {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 120px;
 }
 
 .menu-item {
@@ -99,7 +84,7 @@ select {
 }
 
 .active {
-    background-color: var(--fill-light);
+    background-color: var(--fill-mid);
     color: var(--accent);
     border-radius: var(--border-radius-low);
     -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
