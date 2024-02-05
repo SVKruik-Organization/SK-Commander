@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200;0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;0,6..12,900;0,6..12,1000;1,6..12,200;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700;1,6..12,800;1,6..12,900;1,6..12,1000&display=swap');
+
+/* Palette */
+:root {
+	--main: #212528;
+	--fill: #343739;
+	--fill-mid: #404345;
+	--fill-light: #3B3E40;
+	--accent: #E2C631;
+	--font-main: #FFFFFF;
+	--font-light: #FFFFFF60;
+	--border-radius-high: 15px;
+	--border-radius-mid: 10px;
+	--border-radius-low: 5px;
+}
+
+* {
+	font-family: 'Nunito Sans', sans-serif;
+	font-weight: 400;
+	padding: 0;
+	margin: 0;
+	transition: 0.2s;
+	font-synthesis: none;
+	scroll-behavior: smooth;
+	color: var(--font-main);
+	text-decoration: none;
+}
+
+body {
+	background-color: var(--main);
+	overflow-x: hidden;
+}
+
+/* Custom Classes */
+.content {
+	box-sizing: border-box;
+	padding: 10px;
+	width: 100vw;
+	height: 91vh;
+}
+
+.faded-text {
+	color: var(--font-light);
+}
+
+.splitter {
+	background-color: var(--font-light);
+	border-radius: var(--border-radius-mid);
+}
+
+.splitter-accent {
+	background-color: var(--accent);
+	border-radius: var(--border-radius-mid);
+}
+
+.shadow {
+	-moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.text-shadow {
+	-moz-text-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+	-webkit-text-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+	text-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Default HTML Tags */
+a,
+button,
+select,
+input {
+	cursor: pointer;
+}
+
+small,
+.small {
+	font-size: small;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: 700;
+}
+
+input {
+	background-color: var(--fill);
+	outline: none;
+	border: none;
+	width: 10px;
+	box-sizing: border-box;
+	padding: 0 5px;
+}
+
+button {
+	background-color: var(--fill);
+	border: none;
+}
+
+select {
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	background-color: transparent;
+	outline: none;
+	border: none;
+}
+
+select::-ms-expand {
+	display: none;
+}
+
+select option {
+	background-color: var(--fill);
+}
+
+p {
+	font-size: 15px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+	width: 7px;
+}
+
+
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px var(--main);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--font-light);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--font-main);
+}
