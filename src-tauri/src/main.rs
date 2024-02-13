@@ -2,12 +2,27 @@
 #![allow(unused)]
 
 use dotenv::dotenv;
-use serde_json::error;
-use sqlx::{mysql::*, Pool};
+use serde_json::to_string;
+use sqlx::{mysql::*, MySqlPool};
 use sqlx::{FromRow, Row};
 use std::env;
+use tokio::sync::OnceCell;
 
-#[derive(Debug, sqlx::FromRow, Default)]
+static POOL: OnceCell<MySqlPool> = OnceCell::const_new();
+
+async fn get_pool() -> &'static MySqlPool {
+    POOL.get_or_init(|| async {
+        dotenv().ok();
+        let database_url: String = match env::var("DATABASE_TOKEN") {
+            Ok(res) => String::from(res),
+            Err(error) => panic!("Key not found. {:?}", error),
+        };
+        MySqlPool::connect(&database_url).await.unwrap()
+    })
+    .await
+}
+
+#[derive(Debug, sqlx::FromRow, Default, serde::Serialize)]
 struct Guild {
     snowflake: String,
     register_snowflake: Option<String>,
@@ -43,30 +58,22 @@ fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
 
-#[tokio::main]
-async fn main() -> Result<(), sqlx::Error> {
-    dotenv().ok();
-
-    let database_url: String = match env::var("DATABASE_TOKEN") {
-        Ok(res) => String::from(res),
-        Err(error) => panic!("Key not found. {:?}", error),
+#[tauri::command]
+async fn fetch_guild(snowflake: String) -> Result<String, String> {
+    let query = sqlx::query_as::<_, Guild>("SELECT * FROM guild LEFT JOIN guild_settings ON guild_settings.guild_snowflake = guild.snowflake WHERE snowflake = ?;").bind(snowflake);
+    let guild: Guild = match query.fetch_one(get_pool().await).await {
+        Ok(result) => result,
+        Err(e) => return Err(format!("Failed to fetch Guild: {:?}", e)),
     };
 
-    let pool: Pool<MySql> = MySqlPoolOptions::new()
-        .max_connections(5)
-        .connect(&database_url)
-        .await?;
+    let json_string = serde_json::to_string(&guild)
+        .map_err(|e| format!("Failed to serialize Guild to JSON: {:?}", e))?;
+    Ok(json_string)
+}
 
-    let query = sqlx::query_as::<_, Guild>("SELECT * FROM guild LEFT JOIN guild_settings ON guild_settings.guild_snowflake = guild.snowflake;");
-    let guilds: Vec<Guild> = query.fetch_all(&pool).await?;
-    for guild in guilds.iter() {
-        println!("{:?}", guild);
-    }
-
+fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![greet, fetch_guild])
         .run(tauri::generate_context!())
         .expect("Error while running tauri application.");
-
-    Ok(())
 }

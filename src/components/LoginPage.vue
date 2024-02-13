@@ -1,6 +1,15 @@
 <script lang='js'>
+import { invoke } from "@tauri-apps/api/tauri";
+
 export default {
     name: "LoginPage",
+    async mounted() {
+        invoke("fetch_guild", { snowflake: "1022886794510999664" }).then((data) => {
+            console.log(data);
+        }).catch((err) => {
+            console.error(err);
+        });
+    },
     methods: {
         login(event) {
             event.preventDefault();
