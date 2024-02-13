@@ -2,9 +2,12 @@
 
 export default {
     name: "InformationSettings",
-    props: {
-        guild: Object
-    },
+    props: ["guild"],
+    watch: {
+        guild(newGuild) {
+            this.$store.dispatch("setActiveGuild", newGuild);
+        }
+    }
 };
 </script>
 
@@ -14,27 +17,27 @@ export default {
             <p class="header text-shadow">Constants</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Server ID</p>
-                <input type="text" disabled id="constantSnowflake" class="shadow input">
+                <input :value="this.guild.snowflake" type="text" disabled id="constantSnowflake" class="shadow input">
             </div>
             <div class="input-container">
                 <p class="input-label text-shadow">Registerer ID</p>
-                <input type="text" disabled id="constantRegisterSnowflake" class="shadow input">
+                <input :value="this.guild.operator" type="text" disabled id="constantRegisterSnowflake" class="shadow input">
             </div>
             <div class="input-container">
                 <p class="input-label text-shadow">Name</p>
-                <input type="text" disabled id="constantName" class="shadow input">
+                <input :value="this.guild.name" type="text" disabled id="constantName" class="shadow input">
             </div>
             <div class="input-container">
                 <p class="input-label text-shadow">Locale</p>
-                <input type="text" disabled id="constantLocale" class="shadow input">
+                <input :value="this.guild.locale" type="text" disabled id="constantLocale" class="shadow input">
             </div>
             <div class="input-container">
                 <p class="input-label text-shadow">Status</p>
                 <div class="input-wrapper">
-                    <div class="select-wrapper shadow">
-                        <select id="constantStatus" disabled>
-                            <option>Enabled</option>
-                            <option>Disabled</option>
+                    <div class="select-wrapper shadow input">
+                        <select :value="this.guild.disabled" id="constantStatus" disabled>
+                            <option value="false">Enabled</option>
+                            <option value="true">Disabled</option>
                         </select>
                         <i class="fa-solid fa-caret-down select-icon"></i>
                     </div>
@@ -61,6 +64,7 @@ export default {
     border-radius: var(--border-radius-low);
     background-color: var(--fill-mid);
     border: 2px solid #FFFFFF10;
+    margin-right: 0;
 }
 
 select {

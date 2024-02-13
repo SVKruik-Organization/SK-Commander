@@ -2,8 +2,11 @@
 
 export default {
     name: "UserSettings",
-    props: {
-        guild: Object
+    props: ["guild"],
+    watch: {
+        guild(newGuild) {
+            this.$store.dispatch("setActiveGuild", newGuild);
+        }
     },
     methods: {
         save(inputId, iconId) {

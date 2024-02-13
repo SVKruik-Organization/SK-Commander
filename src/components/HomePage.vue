@@ -1,10 +1,31 @@
 <script lang='js'>
-
 export default {
     name: "HomePage",
-    data() {
-        return {
-            activeGuild: {}
+    computed: {
+        activeGuild() {
+            return this.$store.getters.getActiveGuild;
+        }
+    },
+    props: {
+        jwt: String,
+        guilds: Array
+    },
+    created() {
+        if (!this.jwt) return this.$router.push("/unauthorized");
+        if (!this.activeGuild) this.$store.commit("setActiveGuild", this.guilds[0]);
+    },
+    mounted() {
+        if (this.activeGuild) {
+            this.$refs["serverSelect"].value = this.activeGuild.snowflake;
+        }
+    },
+    methods: {
+        changeGuild(event) {
+            const selectedGuild = this.guilds.find(guild => guild.snowflake === event.target.value);
+            if (selectedGuild) {
+                this.$store.commit("setActiveGuild", selectedGuild);
+                this.initialGuild = null;
+            }
         }
     }
 };
@@ -14,10 +35,8 @@ export default {
     <div class="content main-content">
         <section class="select-container">
             <div class="select-wrapper shadow">
-                <select>
-                    <option>Guild Name A</option>
-                    <option>Guild Name B</option>
-                    <option>Guild Name C</option>
+                <select ref="serverSelect" @change="this.changeGuild($event)">
+                    <option v-for="guild in this.guilds" :value="guild.snowflake">{{ guild.name }}</option>
                 </select>
                 <i class="fa-solid fa-caret-down select-icon"></i>
             </div>
@@ -37,7 +56,6 @@ export default {
             <span class="splitter-accent"></span>
             <router-view :guild="this.activeGuild"></router-view>
         </section>
-        <router-link to="/">Login</router-link>
     </div>
 </template>
 

@@ -19,6 +19,7 @@ export default {
             this.$router.push(targetRoute);
         },
         signOut() {
+            this.$emit("logout");
             this.$router.push("/");
         }
     }
@@ -26,7 +27,7 @@ export default {
 </script>
 
 <template>
-    <nav class="shadow" v-if="this.$route.path !== '/'">
+    <nav class="shadow" v-if="this.$route.path !== '/' && this.$route.path !== '/unauthorized'">
         <section class="links-container">
             <div class="link-item">
                 <router-link class="link" to="/home">Home</router-link>
@@ -36,17 +37,13 @@ export default {
                 <router-link class="link" to="/statistics">Statistics</router-link>
                 <span class="nav-indicator"></span>
             </div>
-            <div class="link-item">
-                <router-link class="link" to="/greet">Greet</router-link>
-                <span class="nav-indicator"></span>
-            </div>
         </section>
         <section class="personal-container">
             <img class="profile-picture shadow" @click="this.toggleDropdown()">
             <i class="fa-solid fa-caret-down dropdown-icon" @click="this.toggleDropdown()"></i>
         </section>
     </nav>
-    <div class="dropdown-menu" v-if="this.$route.path !== '/'">
+    <div class="dropdown-menu" v-if="this.$route.path !== '/' && this.$route.path !== '/unauthorized'">
         <div class="dropdown-item">
             <div class="information-wrapper">
                 <h5 class="username">Stefan Kruik</h5>

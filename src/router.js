@@ -7,15 +7,16 @@ import EconomySettings from "./components/Home/EconomySettings.vue";
 import LevelSettings from "./components/Home/LevelSettings.vue";
 import UserSettings from "./components/Home/UserSettings.vue";
 import InformationSettings from "./components/Home/InformationSettings.vue";
-import GreetPage from "./components/Greet.vue";
+import UnauthorizedPage from "./components/UnauthorizedPage.vue";
+import SessionExpiredPage from "./components/SessionExpiredPage.vue";
 
 const router = createRouter({
     history: createWebHistory(),
     linkActiveClass: "active",
     routes: [
-        { path: "/", component: LoginPage },
+        { path: "/", component: LoginPage, props: true },
         {
-            path: "/home", component: HomePage, children: [
+            path: "/home", component: HomePage, props: true, children: [
                 { path: "", redirect: "/home/general" },
                 { path: "general", component: GeneralSettings, props: true },
                 { path: "economy", component: EconomySettings, props: true },
@@ -24,8 +25,9 @@ const router = createRouter({
                 { path: "information", component: InformationSettings, props: true },
             ]
         },
-        { path: "/statistics", component: StatisticsPage },
-        { path: "/greet", component: GreetPage },
+        { path: "/statistics", component: StatisticsPage, props: true },
+        { path: "/unauthorized", component: UnauthorizedPage, props: true },
+        { path: "/session-expired", component: SessionExpiredPage, props: true },
         { path: "/:pathMatch(.*)", redirect: "/" }
     ]
 });

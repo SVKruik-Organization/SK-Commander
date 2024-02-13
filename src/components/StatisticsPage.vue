@@ -1,7 +1,14 @@
 <script lang='js'>
 
 export default {
-    name: "StatisticsPage"
+    name: "StatisticsPage",
+    props: {
+        jwt: String,
+        guilds: Array
+    },
+    mounted() {
+        if (!this.jwt) return this.$router.push("/unauthorized");
+    }
 };
 </script>
 

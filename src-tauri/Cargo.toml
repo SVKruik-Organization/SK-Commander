@@ -21,6 +21,7 @@ tokio = { version = "1.36.0", features = ["full"] }
 sqlx = { version = "0.7", features = [ "runtime-tokio", "mysql", "chrono" ] }
 dotenv = "0.15.0"
 once_cell = "1.19.0"
+reqwest = "0.11.24"
 
 [features]
 custom-protocol = ["tauri/custom-protocol"]

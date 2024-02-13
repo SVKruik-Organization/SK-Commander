@@ -3,17 +3,59 @@ import { invoke } from "@tauri-apps/api/tauri";
 
 export default {
     name: "LoginPage",
-    async mounted() {
-        invoke("fetch_guild", { snowflake: "1022886794510999664" }).then((data) => {
-            console.log(data);
-        }).catch((err) => {
-            console.error(err);
-        });
+    data() {
+        return {
+            errorStatus: false,
+            errorMessage: ""
+        }
     },
+    props: {
+        jwt: String,
+        guilds: Array
+    },
+    emits: [
+        "login"
+    ],
     methods: {
         login(event) {
             event.preventDefault();
-            this.$router.push("/home/general");
+            const username = document.getElementById("username-input").value;
+            const password = document.getElementById("password-input").value;
+
+            if (username.length === 0 || password.length === 0) {
+                this.errorStatus = true;
+                return this.errorMessage = "Please fill in your credentials.";
+            }
+
+            invoke("login", { username: username, password: password }).then((rawUserData) => {
+                if (rawUserData === "Not Found") {
+                    this.errorStatus = true;
+                    this.errorMessage = "This username does not exist.";
+                } else if (rawUserData === "Unauthorized") {
+                    this.errorStatus = true;
+                    this.errorMessage = "Your password is incorrect.";
+                } else {
+                    try {
+                        invoke("fetch_guild", { username: username }).then((rawGuildData) => {
+                            const userData = JSON.parse(rawUserData);
+                            const guildData = JSON.parse(rawGuildData);
+                            this.$emit("login", userData.accessToken, guildData);
+                        }).catch((error) => {
+                            console.error(error);
+                            this.errorStatus = true;
+                            this.errorMessage = "Something went wrong while retrieving your information. Please try again later.";
+                        });
+                    } catch (error) {
+                        console.error(error);
+                        this.errorStatus = true;
+                        this.errorMessage = "Something went wrong while processing your information. Please try again later.";
+                    }
+                }
+            }).catch((error) => {
+                console.error(error);
+                this.errorStatus = true;
+                this.errorMessage = "Something went wrong while signing in. Please try again later.";
+            });
         }
     }
 };
@@ -32,7 +74,7 @@ export default {
                         <img src="../assets/images/gold.png" class="input-image">
                         <div class="input-content">
                             <i class="fa-solid fa-user faded-text"></i>
-                            <input placeholder="Username" class="text-input" type="text">
+                            <input placeholder="Username" id="username-input" class="text-input" type="text">
                         </div>
                     </div>
                     <div class="password-wrapper">
@@ -40,7 +82,7 @@ export default {
                             <img src="../assets/images/gold.png" class="input-image">
                             <div class="input-content">
                                 <i class="fa-solid fa-key faded-text"></i>
-                                <input placeholder="Password" class="text-input" type="password">
+                                <input placeholder="Password" id="password-input" class="text-input" type="password">
                             </div>
                         </div>
                         <a href="https://github.com/SVKruik/Discord-Bots-v2" target="_blank" class="faded-text small">
@@ -57,15 +99,24 @@ export default {
                 </section>
             </form>
         </section>
+        <section class="login-card error-card" v-if="this.errorStatus">
+            <p class="error-message">{{ this.errorMessage }}</p>
+        </section>
     </div>
 </template>
 
 <style scoped>
+body {
+    overflow: hidden;
+}
+
 .content {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    margin-top: 70px;
     padding: 0;
+    gap: 20px;
 }
 
 .login-card {
@@ -78,6 +129,19 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 50px;
+}
+
+.error-card {
+    min-height: 50px;
+    height: unset;
+    gap: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-message {
+    color: var(--danger);
+    text-align: center;
 }
 
 .header {

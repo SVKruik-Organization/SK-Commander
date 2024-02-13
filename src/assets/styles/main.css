@@ -81,6 +81,7 @@ body {
 	border-radius: var(--border-radius-low);
 	background-color: var(--fill-mid);
 	border: 2px solid #FFFFFF10;
+	font-size: 12px;
 }
 
 /* Default HTML Tags */
