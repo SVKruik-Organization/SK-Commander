@@ -2,28 +2,24 @@
 
 export default {
     name: "UnauthorizedPage",
-    mounted() {
-        this.$emit("logout");
-    }
+    emits: [
+        "logout"
+    ]
 };
 </script>
 
 <template>
     <div class="content">
-        <div class="content-wrapper">
+        <div class="content-wrapper error-page">
             <h1>401</h1>
             <h4>Uh oh! The page you tried to visit requires you to be signed in!</h4>
-            <router-link to="/">Sign In</router-link>
+            <button @click="this.$emit('logout');">Sign In</button>
         </div>
     </div>
 </template>
 
 <style scoped>
 .content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
 }
 </style>

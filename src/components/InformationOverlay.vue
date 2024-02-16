@@ -1,6 +1,9 @@
 <script lang='js'>
 export default {
-    name: "InformationOverlay"
+    name: "InformationOverlay",
+    emits: [
+        "toggleInformationOverlay"
+    ]
 };
 </script>
 
@@ -19,7 +22,7 @@ export default {
                 </p>
             </article>
         </section>
-        <div class="overlay-background" @click.self="this.$emit('toggleInformationOverlay')"></div>
+        <div class="overlay-background" @click.self="this.$emit('toggleInformationOverlay');"></div>
     </div>
 </template>
 

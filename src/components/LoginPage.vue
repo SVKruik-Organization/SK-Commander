@@ -93,7 +93,7 @@ export default {
                 <section class="submit-container">
                     <div class="input-wrapper">
                         <img src="../assets/images/gold.png" class="input-image">
-                        <button class="login-button" @click="this.login($event)">Login</button>
+                        <button class="login-button" @click="this.login($event);">Login</button>
                     </div>
                     <a href="https://github.com/SVKruik/Discord-Bots-v2" target="_blank" class="faded-text small">
                         Don't have an account yet?</a>

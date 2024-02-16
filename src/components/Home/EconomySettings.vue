@@ -34,17 +34,17 @@ export default {
             <div class="input-container">
                 <p class="input-label text-shadow">XP +15% 24H</p>
                 <div class="input-wrapper">
-                    <input :value="this.guild.xp15" type="number" class="shadow input" id="priceXp15" @change="this.change('save-priceXp15')">
+                    <input :value="this.guild.xp15" type="number" class="shadow input" id="priceXp15" @change="this.change('save-priceXp15');">
                     <i class="fa-solid fa-floppy-disk save-icon" id="save-priceXp15"
-                        @click="this.save('priceXp15', 'save-priceXp15')"></i>
+                        @click="this.save('priceXp15', 'save-priceXp15');"></i>
                 </div>
             </div>
             <div class="input-container">
                 <p class="input-label text-shadow">XP +50% 24H</p>
                 <div class="input-wrapper">
-                    <input :value="this.guild.xp50" type="number" class="shadow input" id="priceXp50" @change="this.change('save-priceXp50')">
+                    <input :value="this.guild.xp50" type="number" class="shadow input" id="priceXp50" @change="this.change('save-priceXp50');">
                     <i class="fa-solid fa-floppy-disk save-icon" id="save-priceXp50"
-                        @click="this.save('priceXp50', 'save-priceXp50')"></i>
+                        @click="this.save('priceXp50', 'save-priceXp50');"></i>
                 </div>
             </div>
         </section>
@@ -53,17 +53,17 @@ export default {
             <div class="input-container">
                 <p class="input-label text-shadow">Level Up</p>
                 <div class="input-wrapper">
-                    <input :value="this.guild.level_up_reward_base" type="number" class="shadow input" id="levelUp" @change="this.change('save-levelUp')">
+                    <input :value="this.guild.level_up_reward_base" type="number" class="shadow input" id="levelUp" @change="this.change('save-levelUp');">
                     <i class="fa-solid fa-floppy-disk save-icon" id="save-levelUp"
-                        @click="this.save('levelUp', 'save-levelUp')"></i>
+                        @click="this.save('levelUp', 'save-levelUp');"></i>
                 </div>
             </div>
             <div class="input-container">
                 <p class="input-label text-shadow">Jackpot</p>
                 <div class="input-wrapper">
-                    <input :value="this.guild.jackpot" type="number" class="shadow input" id="jackpot" @change="this.change('save-jackpot')">
+                    <input :value="this.guild.jackpot" type="number" class="shadow input" id="jackpot" @change="this.change('save-jackpot');">
                     <i class="fa-solid fa-floppy-disk save-icon" id="save-jackpot"
-                        @click="this.save('jackpot', 'save-jackpot')"></i>
+                        @click="this.save('jackpot', 'save-jackpot');"></i>
                 </div>
             </div>
         </section>
@@ -73,17 +73,17 @@ export default {
                 <p class="input-label text-shadow">Position</p>
                 <div class="input-wrapper">
                     <input :value="this.guild.role_cosmetic_power" type="number" min="3" class="shadow input" id="roleCosmeticPosition"
-                        @change="this.change('save-roleCosmeticPosition')">
+                        @change="this.change('save-roleCosmeticPosition');">
                     <i class="fa-solid fa-floppy-disk save-icon" id="save-roleCosmeticPosition"
-                        @click="this.save('roleCosmeticPosition', 'save-roleCosmeticPosition')"></i>
+                        @click="this.save('roleCosmeticPosition', 'save-roleCosmeticPosition');"></i>
                 </div>
             </div>
             <div class="input-container">
                 <p class="input-label text-shadow">Price</p>
                 <div class="input-wrapper">
-                    <input :value="this.guild.role_cosmetic_price" type="number" class="shadow input" id="cosmeticRole" @change="this.change('save-cosmeticRole')">
+                    <input :value="this.guild.role_cosmetic_price" type="number" class="shadow input" id="cosmeticRole" @change="this.change('save-cosmeticRole');">
                     <i class="fa-solid fa-floppy-disk save-icon" id="save-cosmeticRole"
-                        @click="this.save('cosmeticRole', 'save-cosmeticRole')"></i>
+                        @click="this.save('cosmeticRole', 'save-cosmeticRole');"></i>
                 </div>
             </div>
         </section>

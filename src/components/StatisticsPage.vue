@@ -5,8 +5,10 @@ export default {
         user: Object,
         guilds: Array
     },
-    mounted() {
-        if (!this.user) return this.$router.push("/unauthorized");
+    created() {
+        if (!this.user) {
+            return this.$router.push("/unauthorized");
+        } else if (new Date(this.user.exp * 1000) < new Date()) return this.$router.push("/session-expired");
     }
 };
 </script>

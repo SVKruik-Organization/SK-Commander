@@ -1,7 +1,4 @@
-// store.js
-import { createStore } from 'vuex';
-
-export default createStore({
+export default {
     state: {
         activeGuild: null,
     },
@@ -18,4 +15,4 @@ export default createStore({
     getters: {
         getActiveGuild: (state) => state.activeGuild,
     },
-});
+}

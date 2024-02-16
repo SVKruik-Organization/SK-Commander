@@ -27,9 +27,17 @@ export default {
 		 * Clear session and redirect to login.
 		 */
 		logout() {
+			this.$router.push("/");
 			this.user = null;
 			this.guilds = [];
-			this.$router.push("/");
+		},
+		/**
+		 * Check if the user is logged in. If not, redirect.
+		 */
+		checkStatus() {
+			if (!this.user) {
+				return this.$router.push("/unauthorized");
+			} else if (new Date(this.user.exp * 1000) < new Date()) return this.$router.push("/session-expired");
 		}
 	}
 };
@@ -38,9 +46,10 @@ export default {
 <template>
 	<InformationOverlay v-if="this.informationOverlayStatus"
 		@toggleInformationOverlay="this.informationOverlayStatus = !this.informationOverlayStatus"></InformationOverlay>
-	<NavBar :user="this.user"></NavBar>
+	<NavBar :user="this.user" @logout="this.logout"></NavBar>
 	<router-view :key="$route.path" :user="this.user" :guilds="this.guilds" @login="this.login" @logout="this.logout"
-		@toggleInformationOverlay="this.informationOverlayStatus = !this.informationOverlayStatus"></router-view>
+		@toggleInformationOverlay="this.informationOverlayStatus = !this.informationOverlayStatus"
+		@checkStatus="this.checkStatus"></router-view>
 </template>
 
 <style scoped></style>
