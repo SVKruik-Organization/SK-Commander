@@ -32,15 +32,26 @@
 
 body {
 	background-color: var(--main);
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 /* Custom Classes */
+.content-wrapper {
+    margin: auto;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 560px;
+}
+
 .content {
 	box-sizing: border-box;
 	padding: 10px;
 	width: 100vw;
 	height: 91vh;
+	overflow-y: scroll;
+	scrollbar-gutter: stable;
 }
 
 .faded-text {
@@ -121,6 +132,7 @@ button {
 }
 
 select {
+	appearance: none;
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	background-color: transparent;

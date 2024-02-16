@@ -3,11 +3,11 @@
 
 // Dependencies
 use dotenv::dotenv;
+use jsonwebtoken::{decode, Algorithm, DecodingKey, TokenData, Validation};
 use reqwest;
-use serde_json::json;
-use serde_json::to_string;
-use sqlx::{mysql::*, MySqlPool};
-use sqlx::{FromRow, Row};
+use serde::{Deserialize, Serialize};
+use serde_json::{json, to_string, to_value, Value};
+use sqlx::{mysql::*, FromRow, MySqlPool, Row};
 use std::env;
 use tokio::sync::OnceCell;
 
@@ -25,11 +25,31 @@ async fn get_pool() -> &'static MySqlPool {
     .await
 }
 
+// JWT Claims
+#[derive(Debug, Serialize, Deserialize)]
+struct Claims {
+    id: u32,
+    operator_username: String,
+    user_username: String,
+    snowflake: String,
+    avatar: String,
+    date_creation: String,
+    exp: usize,
+    iat: usize,
+}
+
+// Login Reponse From Stelleri API
+#[derive(Debug, Serialize, Deserialize)]
+struct LoginResponse {
+    access_token: String,
+}
+
 // Guild Object
 #[derive(Debug, sqlx::FromRow, Default, serde::Serialize)]
 struct Guild {
     snowflake: String,
-    operator: Option<String>,
+    operator_id: Option<String>,
+    operator_name: Option<String>,
     name: String,
     channel_admin: Option<String>,
     channel_event: Option<String>,
@@ -40,6 +60,7 @@ struct Guild {
     locale: String,
     disabled: bool,
     guild_date_creation: chrono::DateTime<chrono::Utc>,
+    guild_date_update: Option<chrono::DateTime<chrono::Utc>>,
     xp15: u32,
     xp50: u32,
     level_up_reward_base: u32,
@@ -59,7 +80,7 @@ struct Guild {
 // Fetch specific Guild
 #[tauri::command]
 async fn fetch_guild(username: String) -> Result<String, String> {
-    let query = sqlx::query_as::<_, Guild>("SELECT guild.*, guild_settings.* FROM operator LEFT JOIN guild ON guild.operator = operator.snowflake LEFT JOIN guild_settings ON guild.snowflake = guild_settings.guild_snowflake WHERE username = ?;").bind(username);
+    let query = sqlx::query_as::<_, Guild>("SELECT guild.*, guild_settings.* FROM operator LEFT JOIN guild ON guild.operator_id = operator.snowflake LEFT JOIN guild_settings ON guild.snowflake = guild_settings.guild_snowflake WHERE username = ?;").bind(username);
     let guild: Vec<Guild> = match query.fetch_all(get_pool().await).await {
         Ok(result) => result,
         Err(e) => return Err(format!("Failed to fetch Guild: {:?}", e)),
@@ -70,9 +91,9 @@ async fn fetch_guild(username: String) -> Result<String, String> {
     Ok(json_string)
 }
 
-// Fetch JWT Token
+// Session Login
 #[tauri::command]
-async fn login(username: &str, password: &str) -> Result<String, String> {
+async fn login(username: &str, password: &str) -> Result<Value, String> {
     // Prepare Client
     dotenv().ok();
     let client = reqwest::Client::new();
@@ -102,7 +123,22 @@ async fn login(username: &str, password: &str) -> Result<String, String> {
         .await
         .map_err(|e| format!("Failed to retrieve response body: {:?}", e))?;
 
-    Ok(response)
+    // Full JSON
+    let parsed_response: LoginResponse = serde_json::from_str(response.as_str())
+        .map_err(|e| format!("JSON syntax error: {:?}", e))?;
+
+    // Decode Token
+    let token = decode::<Claims>(
+        &parsed_response.access_token,
+        &DecodingKey::from_secret(env::var("JWT_TOKEN").unwrap().as_ref()),
+        &Validation::default(),
+    )
+    .map_err(|e| format!("Failed to decode token: {:?}", e))?;
+
+    // Payload JSON
+    let mut claims_as_value: Value = to_value(&token.claims)
+        .map_err(|e| format!("Failed to convert claims to JSON value: {:?}", e))?;
+    Ok(claims_as_value)
 }
 
 // Entry Point

@@ -29,7 +29,12 @@ export default {
 
 <template>
     <div class="content-container">
-        <p>User Settings - WIP {{ this.guild }}</p>
+        <section class="settings-item">
+            <p class="header text-shadow">Administrators</p>
+        </section>
+        <section class="settings-item">
+            <p class="header text-shadow">Blocked</p>
+        </section>
     </div>
 </template>
 

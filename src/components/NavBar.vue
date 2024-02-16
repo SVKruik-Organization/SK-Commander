@@ -1,6 +1,9 @@
 <script lang='js'>
 export default {
     name: "Navbar",
+    props: {
+        user: Object
+    },
     methods: {
         toggleDropdown() {
             const caret = document.getElementsByClassName("dropdown-icon")[0];
@@ -17,10 +20,6 @@ export default {
             caret.classList.remove("rotated");
             menu.classList.remove("visible");
             this.$router.push(targetRoute);
-        },
-        signOut() {
-            this.$emit("logout");
-            this.$router.push("/");
         }
     }
 };
@@ -39,15 +38,16 @@ export default {
             </div>
         </section>
         <section class="personal-container">
-            <img class="profile-picture shadow" @click="this.toggleDropdown()">
+            <span class="profile-picture shadow" :style="`background-image: url(${this.user.avatar});`"
+                @click="this.toggleDropdown()"></span>
             <i class="fa-solid fa-caret-down dropdown-icon" @click="this.toggleDropdown()"></i>
         </section>
     </nav>
     <div class="dropdown-menu" v-if="this.$route.path !== '/' && this.$route.path !== '/unauthorized'">
         <div class="dropdown-item">
             <div class="information-wrapper">
-                <h5 class="username">Stefan Kruik</h5>
-                <h6 class="tag">@complex9078</h6>
+                <h5 class="username">{{ this.user ? this.user.operator_username : 'Not Logged In' }}</h5>
+                <h6 class="tag">{{ this.user ? `@${this.user.user_username}` : 'Not Logged In' }}</h6>
             </div>
         </div>
         <span class="splitter"></span>
@@ -57,7 +57,7 @@ export default {
         </div>
         <span class="splitter"></span>
         <div class="dropdown-item">
-            <div @click="this.signOut()" class="dropdown-link-wrapper dropdown-link">
+            <div @click="this.$emit('logout')" class="dropdown-link-wrapper dropdown-link">
                 <h6 class="sign-out-text">Sign Out</h6>
                 <i class="fa-solid fa-arrow-right-from-bracket sign-out-icon"></i>
             </div>
@@ -120,8 +120,10 @@ nav {
 .profile-picture {
     width: 35px;
     height: 35px;
-    object-fit: cover;
+    background-size: 36px;
     background-color: var(--accent);
+    background-repeat: no-repeat;
+    background-position: center;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -148,6 +150,7 @@ nav {
     border-radius: var(--border-radius-low);
     border: 1px solid var(--font-light);
     user-select: none;
+    z-index: 1;
 }
 
 .dropdown-item {

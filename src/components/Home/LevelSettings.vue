@@ -37,7 +37,7 @@ export default {
             <div class="input-container">
                 <p class="input-label text-shadow">Position</p>
                 <div class="input-wrapper">
-                    <input :value="this.guild.role_level_power" type="number" class="shadow input" id="levelRolePosition"
+                    <input :value="this.guild.role_level_power" type="number" min="4" class="shadow input" id="levelRolePosition"
                         @change="this.change('save-levelRolePosition')">
                     <i class="fa-solid fa-floppy-disk save-icon" id="save-levelRolePosition"
                         @click="this.save('levelRolePosition', 'save-levelRolePosition')"></i>
@@ -53,7 +53,7 @@ export default {
                 </div>
             </div>
             <div class="input-container">
-                <p class="input-label text-shadow">Color</p>
+                <p class="input-label text-shadow">HEX Color</p>
                 <div class="input-wrapper role-color-wrapper">
                     <span class="role-color-preview" :style="`background-color: #${this.guild.role_level_color};`"></span>
                     <input ref="role_color" :value="this.guild.role_level_color" type="text" class="shadow input" id="levelRoleColor"

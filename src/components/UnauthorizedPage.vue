@@ -10,9 +10,11 @@ export default {
 
 <template>
     <div class="content">
-        <h1>401</h1>
-        <h4>Uh oh! The page you tried to visit requires you to be signed in!</h4>
-        <router-link to="/">Sign In</router-link>
+        <div class="content-wrapper">
+            <h1>401</h1>
+            <h4>Uh oh! The page you tried to visit requires you to be signed in!</h4>
+            <router-link to="/">Sign In</router-link>
+        </div>
     </div>
 </template>
 

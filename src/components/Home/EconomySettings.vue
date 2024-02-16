@@ -72,7 +72,7 @@ export default {
             <div class="input-container">
                 <p class="input-label text-shadow">Position</p>
                 <div class="input-wrapper">
-                    <input :value="this.guild.role_cosmetic_power" type="text" class="shadow input" id="roleCosmeticPosition"
+                    <input :value="this.guild.role_cosmetic_power" type="number" min="3" class="shadow input" id="roleCosmeticPosition"
                         @change="this.change('save-roleCosmeticPosition')">
                     <i class="fa-solid fa-floppy-disk save-icon" id="save-roleCosmeticPosition"
                         @click="this.save('roleCosmeticPosition', 'save-roleCosmeticPosition')"></i>

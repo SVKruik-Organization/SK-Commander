@@ -1,20 +1,21 @@
 <script lang='js'>
-
 export default {
     name: "StatisticsPage",
     props: {
-        jwt: String,
+        user: Object,
         guilds: Array
     },
     mounted() {
-        if (!this.jwt) return this.$router.push("/unauthorized");
+        if (!this.user) return this.$router.push("/unauthorized");
     }
 };
 </script>
 
 <template>
     <div class="content">
-        <p>Statistics</p>
+        <div class="content-wrapper">
+            <p>Statistics</p>
+        </div>
     </div>
 </template>
 

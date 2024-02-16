@@ -1,37 +1,46 @@
 <script lang='js'>
 import NavBar from './components/NavBar.vue';
+import InformationOverlay from './components/InformationOverlay.vue';
 
 export default {
 	name: "App",
-	components: { NavBar },
+	components: { NavBar, InformationOverlay },
 	data() {
 		return {
-			jwt: null,
-			guilds: []
+			user: null,
+			guilds: [],
+			informationOverlayStatus: false,
 		};
 	},
 	methods: {
 		/**
 		 * Setup the user account.
-		 * @param {string} token JWT token from the Stelleri API.
+		 * @param {Object} user User Object From the Stelleri API.
 		 * @param {Array} guilds The Guilds this operator controls.
 		 */
-		login(token, guilds) {
-			this.jwt = token;
+		login(user, guilds) {
+			this.user = user;
 			this.guilds = guilds;
 			this.$router.push("/home/general");
 		},
+		/**
+		 * Clear session and redirect to login.
+		 */
 		logout() {
-			this.jwt = null;
+			this.user = null;
 			this.guilds = [];
+			this.$router.push("/");
 		}
 	}
 };
 </script>
 
 <template>
-	<NavBar></NavBar>
-	<router-view :key="$route.path" :jwt="this.jwt" :guilds="this.guilds" @login="this.login" @logout="this.logout"></router-view>
+	<InformationOverlay v-if="this.informationOverlayStatus"
+		@toggleInformationOverlay="this.informationOverlayStatus = !this.informationOverlayStatus"></InformationOverlay>
+	<NavBar :user="this.user"></NavBar>
+	<router-view :key="$route.path" :user="this.user" :guilds="this.guilds" @login="this.login" @logout="this.logout"
+		@toggleInformationOverlay="this.informationOverlayStatus = !this.informationOverlayStatus"></router-view>
 </template>
 
 <style scoped></style>

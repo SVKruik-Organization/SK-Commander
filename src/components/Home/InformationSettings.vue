@@ -14,34 +14,55 @@ export default {
 <template>
     <div class="content-container">
         <section class="settings-item">
-            <p class="header text-shadow">Constants</p>
+            <p class="header text-shadow">Server</p>
             <div class="input-container">
-                <p class="input-label text-shadow">Server ID</p>
-                <input :value="this.guild.snowflake" type="text" disabled id="constantSnowflake" class="shadow input">
-            </div>
-            <div class="input-container">
-                <p class="input-label text-shadow">Registerer ID</p>
-                <input :value="this.guild.operator" type="text" disabled id="constantRegisterSnowflake" class="shadow input">
+                <p class="input-label text-shadow">ID</p>
+                <input :value="this.guild.snowflake" type="text" disabled class="shadow input">
             </div>
             <div class="input-container">
                 <p class="input-label text-shadow">Name</p>
-                <input :value="this.guild.name" type="text" disabled id="constantName" class="shadow input">
+                <input :value="this.guild.name" type="text" disabled class="shadow input">
             </div>
             <div class="input-container">
                 <p class="input-label text-shadow">Locale</p>
-                <input :value="this.guild.locale" type="text" disabled id="constantLocale" class="shadow input">
+                <input :value="this.guild.locale" type="text" disabled class="shadow input">
             </div>
             <div class="input-container">
                 <p class="input-label text-shadow">Status</p>
                 <div class="input-wrapper">
                     <div class="select-wrapper shadow input">
-                        <select :value="this.guild.disabled" id="constantStatus" disabled>
+                        <select :value="this.guild.disabled" disabled>
                             <option value="false">Enabled</option>
                             <option value="true">Disabled</option>
                         </select>
                         <i class="fa-solid fa-caret-down select-icon"></i>
                     </div>
                 </div>
+            </div>
+        </section>
+        <section class="settings-item">
+            <p class="header text-shadow">Dates</p>
+            <div class="input-container">
+                <p class="input-label text-shadow">Creation</p>
+                <input :value="new Date(this.guild.guild_date_creation).toLocaleString()" type="text" disabled
+                    class="shadow input">
+            </div>
+            <div class="input-container">
+                <p class="input-label text-shadow">Last Update</p>
+                <input
+                    :value="this.guild.guild_date_update ? new Date(this.guild.guild_date_update).toLocaleString() : 'Never'"
+                    type="text" disabled class="shadow input">
+            </div>
+        </section>
+        <section class="settings-item">
+            <p class="header text-shadow">Operator</p>
+            <div class="input-container">
+                <p class="input-label text-shadow">ID</p>
+                <input :value="this.guild.operator_id" type="text" disabled class="shadow input">
+            </div>
+            <div class="input-container">
+                <p class="input-label text-shadow">Name</p>
+                <input :value="this.guild.operator_name" type="text" disabled class="shadow input">
             </div>
         </section>
     </div>

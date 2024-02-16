@@ -10,7 +10,7 @@ export default {
         }
     },
     props: {
-        jwt: String,
+        user: Object,
         guilds: Array
     },
     emits: [
@@ -27,19 +27,18 @@ export default {
                 return this.errorMessage = "Please fill in your credentials.";
             }
 
-            invoke("login", { username: username, password: password }).then((rawUserData) => {
-                if (rawUserData === "Not Found") {
+            invoke("login", { username: username, password: password }).then((userData) => {
+                if (userData.message === "Not Found") {
                     this.errorStatus = true;
                     this.errorMessage = "This username does not exist.";
-                } else if (rawUserData === "Unauthorized") {
+                } else if (userData.message === "Unauthorized") {
                     this.errorStatus = true;
                     this.errorMessage = "Your password is incorrect.";
                 } else {
                     try {
-                        invoke("fetch_guild", { username: username }).then((rawGuildData) => {
-                            const userData = JSON.parse(rawUserData);
+                        invoke("fetch_guild", { username: userData.operator_username }).then(async (rawGuildData) => {
                             const guildData = JSON.parse(rawGuildData);
-                            this.$emit("login", userData.accessToken, guildData);
+                            this.$emit("login", userData, guildData);
                         }).catch((error) => {
                             console.error(error);
                             this.errorStatus = true;
@@ -74,7 +73,8 @@ export default {
                         <img src="../assets/images/gold.png" class="input-image">
                         <div class="input-content">
                             <i class="fa-solid fa-user faded-text"></i>
-                            <input placeholder="Username" id="username-input" class="text-input" type="text">
+                            <input placeholder="Username" autocomplete="username" id="username-input" class="text-input"
+                                type="text">
                         </div>
                     </div>
                     <div class="password-wrapper">
@@ -82,7 +82,8 @@ export default {
                             <img src="../assets/images/gold.png" class="input-image">
                             <div class="input-content">
                                 <i class="fa-solid fa-key faded-text"></i>
-                                <input placeholder="Password" id="password-input" class="text-input" type="password">
+                                <input placeholder="Password" autocomplete="current-password" id="password-input"
+                                    class="text-input" type="password">
                             </div>
                         </div>
                         <a href="https://github.com/SVKruik/Discord-Bots-v2" target="_blank" class="faded-text small">

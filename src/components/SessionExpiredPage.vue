@@ -1,5 +1,4 @@
 <script lang='js'>
-
 export default {
     name: "SessionExpiredPage",
     mounted() {
