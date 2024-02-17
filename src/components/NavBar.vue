@@ -7,21 +7,43 @@ export default {
     emits: [
         "logout"
     ],
+    mounted() {
+        // Close Dropdown
+        document.body.addEventListener("click", (event) => {
+            if (!event.target.classList.contains("dropdown-icon") && !event.target.classList.contains("profile-picture")) {
+                this.closeDropdown();
+            }
+        });
+    },
     methods: {
+        /**
+         * Open or close the dropdown.
+         */
         toggleDropdown() {
             const caret = document.getElementsByClassName("dropdown-icon")[0];
             const menu = document.getElementsByClassName("dropdown-menu")[0];
             if (caret.classList.contains("rotated")) {
-                caret.classList.remove("rotated");
-                menu.classList.remove("visible");
+                this.closeDropdown();
             } else {
-                caret.classList.add("rotated");
-                menu.classList.add("visible");
+                if (caret) caret.classList.add("rotated");
+                if (menu) menu.classList.add("visible");
             }
         },
+        /**
+         * Close the dropdown, regardless of current state.
+         */
+        closeDropdown() {
+            const caret = document.getElementsByClassName("dropdown-icon")[0];
+            const menu = document.getElementsByClassName("dropdown-menu")[0];
+            if (caret) caret.classList.remove("rotated");
+            if (menu) menu.classList.remove("visible");
+        },
+        /**
+         * Route the user to another page.
+         * @param {string} targetRoute The target location.
+         */
         link(targetRoute) {
-            caret.classList.remove("rotated");
-            menu.classList.remove("visible");
+            this.closeDropdown();
             this.$router.push(targetRoute);
         }
     }
@@ -29,7 +51,7 @@ export default {
 </script>
 
 <template>
-    <nav class="shadow" v-if="this.$route.path !== '/' && this.$route.path !== '/unauthorized' && this.$route.path !== '/session-expired'">
+    <nav class="shadow">
         <section class="links-container">
             <div class="link-item">
                 <router-link class="link" to="/home">Home</router-link>
@@ -39,6 +61,10 @@ export default {
                 <router-link class="link" to="/statistics">Statistics</router-link>
                 <span class="nav-indicator"></span>
             </div>
+            <div class="link-item">
+                <router-link class="link" to="/operators">Operators</router-link>
+                <span class="nav-indicator"></span>
+            </div>
         </section>
         <section class="personal-container">
             <span class="profile-picture shadow" :style="`background-image: url(${this.user ? this.user.avatar : null});`"
@@ -46,7 +72,7 @@ export default {
             <i class="fa-solid fa-caret-down dropdown-icon" @click="this.toggleDropdown();"></i>
         </section>
     </nav>
-    <div class="dropdown-menu" v-if="this.$route.path !== '/' && this.$route.path !== '/unauthorized' && this.$route.path !== '/session-expired'">
+    <div class="dropdown-menu">
         <div class="dropdown-item">
             <div class="information-wrapper">
                 <h5 class="username">{{ this.user ? this.user.operator_username : 'Not Logged In' }}</h5>
@@ -55,14 +81,19 @@ export default {
         </div>
         <span class="splitter"></span>
         <div class="dropdown-item">
-            <router-link to="/preferences" class="dropdown-link">Preferences</router-link>
+            <router-link to="/home/general" class="dropdown-link">Home</router-link>
+            <router-link to="/preferences/account" class="dropdown-link">Preferences</router-link>
             <router-link to="/support" class="dropdown-link">Support</router-link>
         </div>
         <span class="splitter"></span>
         <div class="dropdown-item">
+            <router-link to="/plans" v-if="this.user.edition === 'Basic'" class="dropdown-link-wrapper dropdown-link">
+                <h6 class="sign-out-text pointer">Upgrade Plan</h6>
+                <i class="fa-solid fa-arrow-up upgrade-icon pointer"></i>
+            </router-link>
             <div @click="this.$emit('logout');" class="dropdown-link-wrapper dropdown-link">
-                <h6 class="sign-out-text">Sign Out</h6>
-                <i class="fa-solid fa-arrow-right-from-bracket sign-out-icon"></i>
+                <h6 class="sign-out-text pointer">Sign Out</h6>
+                <i class="fa-solid fa-arrow-right-from-bracket sign-out-icon pointer"></i>
             </div>
         </div>
     </div>
@@ -132,7 +163,7 @@ nav {
 }
 
 .dropdown-icon {
-    color: var(--font-light);
+    color: var(--font-mid);
     cursor: pointer;
     rotate: 0deg;
 }
@@ -147,11 +178,11 @@ nav {
     position: absolute;
     width: 140px;
     height: fit-content;
-    right: 5px;
+    right: 10px;
     top: 55px;
     background-color: var(--fill-light);
     border-radius: var(--border-radius-low);
-    border: 1px solid var(--font-light);
+    border: 1px solid var(--font-mid);
     user-select: none;
     z-index: 1;
 }
@@ -177,6 +208,16 @@ nav {
     box-sizing: border-box;
     padding: 2px 5px;
     border-radius: var(--border-radius-low);
+}
+
+.dropdown-link p {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.upgrade-icon {
+    color: var(--accent);
+    margin-right: 2px;
 }
 
 .visible {
@@ -206,5 +247,15 @@ a:hover,
 .information-wrapper {
     box-sizing: border-box;
     padding: 0 5px;
+}
+
+.active {
+    background-color: transparent;
+    color: var(--font-main);
+    border-radius: 0;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    border-radius: var(--border-radius-low);
 }
 </style>

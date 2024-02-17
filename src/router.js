@@ -9,6 +9,13 @@ import UserSettings from "./components/Home/UserSettings.vue";
 import InformationSettings from "./components/Home/InformationSettings.vue";
 import UnauthorizedPage from "./components/UnauthorizedPage.vue";
 import SessionExpiredPage from "./components/SessionExpiredPage.vue";
+import PreferencesPage from "./components/PreferencesPage.vue";
+import AccountSettings from "./components/Preferences/AccountSettings.vue";
+import ApplicationSettings from "./components/Preferences/ApplicationSettings.vue";
+import LinkSettings from "./components/Preferences/LinkSettings.vue";
+import PlansPage from "./components/Preferences/PlansPage.vue";
+import OperatorPage from "./components/OperatorPage.vue";
+import SupportPage from "./components/SupportPage.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -22,10 +29,21 @@ const router = createRouter({
                 { path: "economy", component: EconomySettings, props: true },
                 { path: "level", component: LevelSettings, props: true },
                 { path: "users", component: UserSettings, props: true },
-                { path: "information", component: InformationSettings, props: true },
+                { path: "information", component: InformationSettings, props: true }
+            ]
+        },
+        {
+            path: "/preferences", component: PreferencesPage, props: true, children: [
+                { path: "", redirect: "/preferences/account" },
+                { path: "account", component: AccountSettings, props: true },
+                { path: "application", component: ApplicationSettings, props: true },
+                { path: "links", component: LinkSettings, props: true }
             ]
         },
         { path: "/statistics", component: StatisticsPage, props: true },
+        { path: "/plans", component: PlansPage, props: true },
+        { path: "/operators", component: OperatorPage, props: true },
+        { path: "/support", component: SupportPage, props: true },
         { path: "/unauthorized", component: UnauthorizedPage, props: true },
         { path: "/session-expired", component: SessionExpiredPage, props: true },
         { path: "/:pathMatch(.*)", redirect: "/" }

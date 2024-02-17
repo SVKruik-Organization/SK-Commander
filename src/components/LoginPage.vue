@@ -14,9 +14,14 @@ export default {
         guilds: Array
     },
     emits: [
-        "login"
+        "login",
+        "popup"
     ],
     methods: {
+        /**
+         * Sign-in and load all data.
+         * @param {Object} event DOM Click event.
+         */
         login(event) {
             event.preventDefault();
             const username = document.getElementById("username-input").value;
@@ -28,32 +33,31 @@ export default {
             }
 
             invoke("login", { username: username, password: password }).then((userData) => {
-                if (userData.message === "Not Found") {
-                    this.errorStatus = true;
-                    this.errorMessage = "This username does not exist.";
-                } else if (userData.message === "Unauthorized") {
-                    this.errorStatus = true;
-                    this.errorMessage = "Your password is incorrect.";
-                } else {
-                    try {
-                        invoke("fetch_guild", { username: userData.operator_username }).then(async (rawGuildData) => {
-                            const guildData = JSON.parse(rawGuildData);
-                            this.$emit("login", userData, guildData);
-                        }).catch((error) => {
-                            console.error(error);
-                            this.errorStatus = true;
-                            this.errorMessage = "Something went wrong while retrieving your information. Please try again later.";
-                        });
-                    } catch (error) {
+                try {
+                    invoke("fetch_guild", { username: userData.operator_username }).then(async (rawGuildData) => {
+                        const guildData = JSON.parse(rawGuildData);
+                        this.$emit("login", userData, guildData);
+                    }).catch((error) => {
                         console.error(error);
                         this.errorStatus = true;
-                        this.errorMessage = "Something went wrong while processing your information. Please try again later.";
-                    }
+                        this.errorMessage = "Something went wrong while retrieving your information. Please try again later.";
+                    });
+                } catch (error) {
+                    console.error(error);
+                    this.errorStatus = true;
+                    this.errorMessage = "Something went wrong while processing your information. Please try again later.";
                 }
             }).catch((error) => {
-                console.error(error);
-                this.errorStatus = true;
-                this.errorMessage = "Something went wrong while signing in. Please try again later.";
+                if (error === "Not Found") {
+                    this.errorStatus = true;
+                    this.errorMessage = "This username does not exist.";
+                } else if (error === "Unauthorized") {
+                    this.errorStatus = true;
+                    this.errorMessage = "Your username or password is incorrect.";
+                } else {
+                    this.errorStatus = true;
+                    this.errorMessage = "Something went wrong while signing in. Please try again later.";
+                }
             });
         }
     }
@@ -64,7 +68,7 @@ export default {
     <div class="content">
         <section class="login-card">
             <div class="header">
-                <h1>Welcome back</h1>
+                <h2>Welcome back</h2>
                 <h5 class="sub-header">Sign in to continue</h5>
             </div>
             <form>
@@ -86,8 +90,9 @@ export default {
                                     class="text-input" type="password">
                             </div>
                         </div>
-                        <a href="https://github.com/SVKruik/Discord-Bots-v2" target="_blank" class="faded-text small">
-                            Forgot your password?</a>
+                        <router-link to="/"
+                            @click="this.$emit('popup', 'warning', 'Password reset is still WIP.', 4000)">Forgot your
+                            password?</router-link>
                     </div>
                 </div>
                 <section class="submit-container">
@@ -95,8 +100,8 @@ export default {
                         <img src="../assets/images/gold.png" class="input-image">
                         <button class="login-button" @click="this.login($event);">Login</button>
                     </div>
-                    <a href="https://github.com/SVKruik/Discord-Bots-v2" target="_blank" class="faded-text small">
-                        Don't have an account yet?</a>
+                    <router-link to="/" @click="this.$emit('popup', 'warning', 'Registration is still WIP.', 4000)">Don't
+                        have an account yet?</router-link>
                 </section>
             </form>
         </section>
@@ -228,5 +233,15 @@ input {
     flex-direction: column;
     align-items: center;
     gap: 2px;
+}
+
+.active {
+    background-color: transparent;
+    color: var(--font-mid);
+    border-radius: 0;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    font-size: small;
 }
 </style>

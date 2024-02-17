@@ -1,5 +1,4 @@
 <script lang='js'>
-
 export default {
     name: "LevelSettings",
     props: ["guild"],
@@ -21,6 +20,10 @@ export default {
 
             // TODO - Database Update
         },
+        /**
+         * Show the corresponding save icon when input has been updated.
+         * @param {string} iconId ID of the save icon to show.
+         */
         change(iconId) {
             const icon = document.getElementById(iconId);
             if (!icon) return;
@@ -32,7 +35,7 @@ export default {
 
 <template>
     <div class="content-container">
-        <section class="settings-item">
+        <section class="settings-component">
             <p class="header text-shadow">Level Role</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Position</p>
@@ -78,7 +81,7 @@ export default {
                 </div>
             </div>
         </section>
-        <section class="settings-item">
+        <section class="settings-component">
             <p class="header text-shadow">Rewards</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Normal Message</p>
@@ -117,7 +120,7 @@ export default {
     height: 25px;
     border-radius: var(--border-radius-low);
     background-color: var(--fill-mid);
-    border: 2px solid #FFFFFF10;
+    border: 2px solid var(--font-light);
 }
 
 select {

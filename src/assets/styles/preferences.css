@@ -1,0 +1,20 @@
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.settings-save-button {
+    width: 100%;
+    background-color: var(--fill-light);
+    height: 30px;
+    border-radius: var(--border-radius-mid);
+    border: 2px solid var(--font-light);
+    opacity: 0;
+    cursor: default;
+}
+
+.visible {
+    opacity: 1;
+    cursor: pointer;
+}

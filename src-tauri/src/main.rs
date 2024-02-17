@@ -29,11 +29,16 @@ async fn get_pool() -> &'static MySqlPool {
 #[derive(Debug, Serialize, Deserialize)]
 struct Claims {
     id: u32,
+    owner_snowflake: Option<String>,
+    snowflake: String,
+    edition: String,
     operator_username: String,
     user_username: String,
-    snowflake: String,
+    email: String,
+    service_tag: String,
     avatar: String,
-    date_creation: String,
+    date_creation: chrono::DateTime<chrono::Utc>,
+    date_update: Option<chrono::DateTime<chrono::Utc>>,
     exp: usize,
     iat: usize,
 }
@@ -41,7 +46,8 @@ struct Claims {
 // Login Reponse From Stelleri API
 #[derive(Debug, Serialize, Deserialize)]
 struct LoginResponse {
-    access_token: String,
+    access_token: Option<String>,
+    message: Option<String>,
 }
 
 // Guild Object
@@ -127,23 +133,30 @@ async fn login(username: &str, password: &str) -> Result<Value, String> {
     let parsed_response: LoginResponse = serde_json::from_str(response.as_str())
         .map_err(|e| format!("JSON syntax error: {:?}", e))?;
 
-    // Decode Token
-    let token = decode::<Claims>(
-        &parsed_response.access_token,
-        &DecodingKey::from_secret(env::var("JWT_TOKEN").unwrap().as_ref()),
-        &Validation::default(),
-    )
-    .map_err(|e| format!("Failed to decode token: {:?}", e))?;
+    if let Some(access_token) = parsed_response.access_token.as_deref() {
+        // Decode Token
+        let token = decode::<Claims>(
+            access_token,
+            &DecodingKey::from_secret(env::var("JWT_TOKEN").unwrap().as_ref()),
+            &Validation::default(),
+        )
+        .map_err(|e| format!("Failed to decode token: {:?}", e))?;
 
-    // Payload JSON
-    let mut claims_as_value: Value = to_value(&token.claims)
-        .map_err(|e| format!("Failed to convert claims to JSON value: {:?}", e))?;
-    Ok(claims_as_value)
+        // Payload JSON
+        let mut claims_as_value: Value = to_value(&token.claims)
+            .map_err(|e| format!("Failed to convert claims to JSON value: {:?}", e))?;
+        Ok(claims_as_value)
+    } else if let Some(error_message) = parsed_response.message {
+        Err(error_message)
+    } else {
+        Err(String::from("Failed to serialize."))
+    }
 }
 
 // Entry Point
 fn main() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_store::Builder::default().build())
         .invoke_handler(tauri::generate_handler![fetch_guild, login])
         .run(tauri::generate_context!())
         .expect("Error while running Tauri application.");

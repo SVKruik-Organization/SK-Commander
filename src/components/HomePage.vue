@@ -11,7 +11,7 @@ export default {
         guilds: Array,
     },
     emits: [
-        "toggleInformationOverlay",
+        "toggleInformationOverlay"
     ],
     created() {
         if (!this.user) {
@@ -23,6 +23,10 @@ export default {
         if (this.activeGuild) this.$refs["serverSelect"].value = this.activeGuild.snowflake;
     },
     methods: {
+        /**
+         * Change the selected guild.
+         * @param {Object} event DOM Change Event.
+         */
         changeGuild(event) {
             const selectedGuild = this.guilds.find(guild => guild.snowflake === event.target.value);
             if (selectedGuild) {
@@ -61,78 +65,11 @@ export default {
                         <router-link class="menu-item text-shadow" to="/home/information">Information</router-link>
                     </div>
                     <span class="splitter-accent"></span>
-                    <router-view :guild="this.activeGuild"></router-view>
+                    <router-view :guild="this.activeGuild" :user="this.user"></router-view>
                 </section>
             </div>
         </div>
     </div>
 </template>
 
-<style scoped>
-.select-container {
-    display: flex;
-    gap: 10px;
-}
-
-.settings-container-wrapper {
-    background-color: var(--fill);
-    border-radius: var(--border-radius-high);
-    height: 440px;
-    box-sizing: border-box;
-    padding: 0 0 35px 35px;
-    position: relative;
-}
-
-.information-icon-wrapper {
-    cursor: pointer;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-}
-
-.information-icon {
-    color: var(--accent);
-}
-
-.settings-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 35px;
-}
-
-.menu-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 120px;
-}
-
-.menu-item {
-    height: 32px;
-    width: 120px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-    padding-left: 10px;
-}
-
-.active {
-    background-color: var(--fill-mid);
-    color: var(--accent);
-    border-radius: var(--border-radius-low);
-    -moz-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-}
-
-.splitter {
-    width: 120px;
-    height: 2px;
-}
-
-.splitter-accent {
-    height: 360px;
-    width: 2px;
-}
-</style>
+<style scoped></style>

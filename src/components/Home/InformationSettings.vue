@@ -1,5 +1,4 @@
 <script lang='js'>
-
 export default {
     name: "InformationSettings",
     props: ["guild"],
@@ -13,7 +12,7 @@ export default {
 
 <template>
     <div class="content-container">
-        <section class="settings-item">
+        <section class="settings-component">
             <p class="header text-shadow">Server</p>
             <div class="input-container">
                 <p class="input-label text-shadow">ID</p>
@@ -40,7 +39,7 @@ export default {
                 </div>
             </div>
         </section>
-        <section class="settings-item">
+        <section class="settings-component">
             <p class="header text-shadow">Dates</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Creation</p>
@@ -54,7 +53,7 @@ export default {
                     type="text" disabled class="shadow input">
             </div>
         </section>
-        <section class="settings-item">
+        <section class="settings-component">
             <p class="header text-shadow">Operator</p>
             <div class="input-container">
                 <p class="input-label text-shadow">ID</p>
@@ -70,7 +69,6 @@ export default {
 
 <style scoped>
 .input {
-    cursor: text;
     margin-right: 30px;
 }
 
@@ -84,7 +82,7 @@ export default {
     height: 25px;
     border-radius: var(--border-radius-low);
     background-color: var(--fill-mid);
-    border: 2px solid #FFFFFF10;
+    border: 2px solid var(--font-light);
     margin-right: 0;
 }
 

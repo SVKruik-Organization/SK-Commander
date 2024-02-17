@@ -1,5 +1,4 @@
 <script lang='js'>
-
 export default {
     name: "GeneralSettings",
     props: ["guild"],
@@ -18,6 +17,10 @@ export default {
 
             // TODO - Database Update
         },
+        /**
+         * Show the corresponding save icon when input has been updated.
+         * @param {string} iconId ID of the save icon to show.
+         */
         change(iconId) {
             const icon = document.getElementById(iconId);
             if (!icon) return;
@@ -29,7 +32,7 @@ export default {
 
 <template>
     <div class="content-container">
-        <section class="settings-item">
+        <section class="settings-component">
             <p class="header text-shadow">Channel IDs</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Admin</p>
@@ -77,24 +80,26 @@ export default {
                 </div>
             </div>
         </section>
-        <section class="settings-item">
+        <section class="settings-component">
             <p class="header text-shadow">Roles</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Blinded ID</p>
                 <div class="input-wrapper">
-                    <input :value="this.guild.role_blinded" type="text" class="shadow input" id="roleIdBlinded" @change="this.change('save-roleIdBlinded');">
+                    <input :value="this.guild.role_blinded" type="text" class="shadow input" id="roleIdBlinded"
+                        @change="this.change('save-roleIdBlinded');">
                     <i class="fa-solid fa-floppy-disk save-icon" id="save-roleIdBlinded"
                         @click="this.save('roleIdBlinded', 'save-roleIdBlinded');"></i>
                 </div>
             </div>
         </section>
-        <section class="settings-item">
+        <section class="settings-component">
             <p class="header text-shadow">Other</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Welcome Message</p>
                 <div class="input-wrapper">
                     <div class="select-wrapper shadow input">
-                        <select :value="this.guild.welcome" id="welcomeMessage" @change="this.change('save-welcomeMessage');">
+                        <select :value="this.guild.welcome" id="welcomeMessage"
+                            @change="this.change('save-welcomeMessage');">
                             <option value="true">Enabled</option>
                             <option value="false">Disabled</option>
                         </select>
@@ -114,7 +119,7 @@ export default {
     height: 25px;
     border-radius: var(--border-radius-low);
     background-color: var(--fill-mid);
-    border: 2px solid #FFFFFF10;
+    border: 2px solid var(--font-light);
 }
 
 select {

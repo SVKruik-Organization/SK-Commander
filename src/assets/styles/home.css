@@ -4,7 +4,7 @@
     width: 200px;
     align-items: center;
     border-radius: var(--border-radius-mid);
-    border: 1px solid var(--font-light);
+    border: 1px solid var(--font-mid);
     background-color: var(--fill);
     justify-content: flex-end;
     height: 30px;
@@ -18,7 +18,7 @@ select {
 }
 
 .select-icon {
-    color: var(--font-light);
+    color: var(--font-mid);
     position: absolute;
     width: 20px;
 }
@@ -32,7 +32,8 @@ select {
     height: 400px;
 }
 
-.settings-item {
+.settings-component,
+.settings-nested-component {
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -58,13 +59,9 @@ select {
 }
 
 .save-icon {
-    color: var(--font-light);
+    color: var(--font-mid);
     cursor: pointer;
     display: block;
     opacity: 0;
     width: 20px;
-}
-
-.visible {
-    opacity: 1;
 }

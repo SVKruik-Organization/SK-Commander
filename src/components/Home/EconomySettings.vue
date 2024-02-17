@@ -1,5 +1,4 @@
 <script lang='js'>
-
 export default {
     name: "EconomySettings",
     props: ["guild"],
@@ -18,6 +17,10 @@ export default {
 
             // TODO - Database Update
         },
+        /**
+         * Show the corresponding save icon when input has been updated.
+         * @param {string} iconId ID of the save icon to show.
+         */
         change(iconId) {
             const icon = document.getElementById(iconId);
             if (!icon) return;
@@ -29,7 +32,7 @@ export default {
 
 <template>
     <div class="content-container">
-        <section class="settings-item">
+        <section class="settings-component">
             <p class="header text-shadow">Prices</p>
             <div class="input-container">
                 <p class="input-label text-shadow">XP +15% 24H</p>
@@ -48,7 +51,7 @@ export default {
                 </div>
             </div>
         </section>
-        <section class="settings-item">
+        <section class="settings-component">
             <p class="header text-shadow">Rewards</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Level Up</p>
@@ -67,7 +70,7 @@ export default {
                 </div>
             </div>
         </section>
-        <section class="settings-item">
+        <section class="settings-component">
             <p class="header text-shadow">Cosmetic Role</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Position</p>
