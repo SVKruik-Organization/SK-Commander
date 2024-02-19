@@ -58,6 +58,10 @@ export default {
                 <span class="nav-indicator"></span>
             </div>
             <div class="link-item">
+                <router-link class="link" to="/settings/general">Settings</router-link>
+                <span class="nav-indicator"></span>
+            </div>
+            <div class="link-item">
                 <router-link class="link" to="/statistics">Statistics</router-link>
                 <span class="nav-indicator"></span>
             </div>
@@ -81,7 +85,7 @@ export default {
         </div>
         <span class="splitter"></span>
         <div class="dropdown-item">
-            <router-link to="/home/general" class="dropdown-link">Home</router-link>
+            <router-link to="/home" class="dropdown-link">Home</router-link>
             <router-link to="/preferences/account" class="dropdown-link">Preferences</router-link>
             <router-link to="/support" class="dropdown-link">Support</router-link>
         </div>

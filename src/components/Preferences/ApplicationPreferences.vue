@@ -1,7 +1,7 @@
 <script lang='js'>
 import { getVersion } from '@tauri-apps/api/app';
 export default {
-    name: "ApplicationSettings",
+    name: "ApplicationPreferences",
     props: {
         user: Object,
         guilds: Array

@@ -1,6 +1,6 @@
 <script lang='js'>
 export default {
-    name: "LinkSettings",
+    name: "LinkPreferences",
     props: {
         user: Object,
         guilds: Array

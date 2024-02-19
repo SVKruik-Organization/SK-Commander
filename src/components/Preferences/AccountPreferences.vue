@@ -1,6 +1,6 @@
 <script lang='js'>
 export default {
-    name: "AccountSettings",
+    name: "AccountPreferences",
     props: {
         user: Object,
         guilds: Array

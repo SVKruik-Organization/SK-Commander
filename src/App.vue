@@ -26,7 +26,7 @@ export default {
 		login(user, guilds) {
 			this.user = user;
 			this.guilds = guilds;
-			this.$router.push("/home/general");
+			this.$router.push("/home");
 		},
 		/**
 		 * Clear session and redirect to login.
