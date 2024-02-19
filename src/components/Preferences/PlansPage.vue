@@ -45,7 +45,7 @@ export default {
                         <li class="perk-item">Up to 3 Servers</li>
                         <li class="perk-item">Community Support</li>
                     </ul>
-                    <button class="select-button" id="plan-basic" @click="this.upgrade($event)">Get Started</button>
+                    <button class="select-button bold" id="plan-basic" @click="this.upgrade($event)">Get Started</button>
                 </div>
                 <div class="plan-card shadow">
                     <h3>Professional</h3>
@@ -64,7 +64,7 @@ export default {
                         <li class="perk-item">Statistics & Logging</li>
                         <li class="perk-item">Dedicated Support</li>
                     </ul>
-                    <button class="select-button" id="plan-professional" @click="this.upgrade($event)">Get Started</button>
+                    <button class="select-button bold" id="plan-professional" @click="this.upgrade($event)">Get Started</button>
                 </div>
                 <div class="plan-card shadow">
                     <h3>Enterprise</h3>
@@ -84,7 +84,7 @@ export default {
                         <li class="perk-item">Priority Dedicated Support</li>
                         <li class="perk-item">Early Access & Bèta Program</li>
                     </ul>
-                    <button class="select-button" id="plan-enterprise" @click="this.upgrade($event)">Get Started</button>
+                    <button class="select-button bold" id="plan-enterprise" @click="this.upgrade($event)">Get Started</button>
                 </div>
             </section>
             <section class="footer">
@@ -159,7 +159,7 @@ export default {
 }
 
 .perk-item {
-    font-size: 12px;
+    font-size: var(--font-size-mid);
 }
 
 .plan-card>*:last-child {
@@ -171,8 +171,7 @@ export default {
     border-radius: var(--border-radius-mid);
     height: 25px;
     color: var(--main);
-    font-weight: bold;
-    font-size: small;
+    font-size: var(--font-size-small);
 }
 
 .active-plan-button {

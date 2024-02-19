@@ -11,7 +11,7 @@ export default {
 <template>
     <div class="content-container">
         <section class="settings-component">
-            <p class="header text-shadow">Resources</p>
+            <p class="header bold text-shadow">Resources</p>
             <a href="https://github.com/SVKruik" target="_blank" class="setting-item">
                 <p class="link-text">Discord Community</p>
                 <i class="fa-brands fa-discord link-icon"></i>
@@ -23,7 +23,7 @@ export default {
             </a>
         </section>
         <section class="settings-component">
-            <p class="header text-shadow">Source Code</p>
+            <p class="header bold text-shadow">Source Code</p>
             <a href="https://github.com/SVKruik/bot-config-ui" target="_blank" class="setting-item">
                 <p class="link-text">Bot Commander Repository</p>
                 <i class="fa-solid fa-code-branch link-icon"></i>

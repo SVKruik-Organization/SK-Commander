@@ -4,6 +4,7 @@ import "./assets/styles/main.css";
 import "./assets/styles/settings.css";
 import "./assets/styles/menu.css";
 import "./assets/styles/preferences.css";
+import "./assets/styles/home.css";
 import router from "./router.js";
 import store from "./assets/stores/index.js";
 

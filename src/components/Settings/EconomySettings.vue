@@ -33,7 +33,7 @@ export default {
 <template>
     <div class="content-container">
         <section class="settings-component">
-            <p class="header text-shadow">Prices</p>
+            <p class="header bold text-shadow">Prices</p>
             <div class="input-container">
                 <p class="input-label text-shadow">XP +15% 24H</p>
                 <div class="input-wrapper">
@@ -52,7 +52,7 @@ export default {
             </div>
         </section>
         <section class="settings-component">
-            <p class="header text-shadow">Rewards</p>
+            <p class="header bold text-shadow">Rewards</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Level Up</p>
                 <div class="input-wrapper">
@@ -71,7 +71,7 @@ export default {
             </div>
         </section>
         <section class="settings-component">
-            <p class="header text-shadow">Cosmetic Role</p>
+            <p class="header bold text-shadow">Cosmetic Role</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Position</p>
                 <div class="input-wrapper">

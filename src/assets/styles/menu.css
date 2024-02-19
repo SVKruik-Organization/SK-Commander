@@ -1,28 +1,3 @@
-.select-container {
-    display: flex;
-    gap: 10px;
-}
-
-.settings-container-wrapper {
-    background-color: var(--fill);
-    border-radius: var(--border-radius-high);
-    height: 440px;
-    box-sizing: border-box;
-    padding: 0 0 35px 35px;
-    position: relative;
-}
-
-.information-icon-wrapper {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-}
-
-.information-icon {
-    color: var(--accent);
-    cursor: pointer;
-}
-
 .settings-container {
     display: flex;
     justify-content: space-between;
@@ -33,13 +8,12 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 120px;
+    width: 150px;
 }
 
 .menu-item {
     height: 32px;
-    width: 120px;
-    font-weight: bold;
+    width: 150px;
     display: flex;
     align-items: center;
     box-sizing: border-box;
@@ -56,7 +30,7 @@
 }
 
 .splitter {
-    width: 120px;
+    width: 150px;
     height: 2px;
 }
 

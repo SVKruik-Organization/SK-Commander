@@ -38,7 +38,7 @@ export default {
 <template>
     <div class="content-container">
         <section class="settings-component">
-            <p class="header text-shadow">General</p>
+            <p class="header bold text-shadow">General</p>
             <div class="setting-item">
                 <p class="input-label text-shadow">Username</p>
                 <input :value="this.user.operator_username" @change="this.unlockButton()" type="text" class="shadow input">
@@ -53,7 +53,7 @@ export default {
             </div>
         </section>
         <section class="settings-component">
-            <p class="header text-shadow">2FA Security</p>
+            <p class="header bold text-shadow">2FA Security</p>
             <div class="setting-item">
                 <p class="input-label text-shadow">Email</p>
                 <p>Not Setup</p>
@@ -68,7 +68,7 @@ export default {
             </div>
         </section>
         <section class="settings-component">
-            <p class="header text-shadow">Billing</p>
+            <p class="header bold text-shadow">Billing</p>
             <div class="setting-item">
                 <p class="input-label text-shadow">Active Plan</p>
                 <input :value="this.user.edition" type="text" disabled class="shadow input">

@@ -6,8 +6,9 @@ use dotenv::dotenv;
 use jsonwebtoken::{decode, Algorithm, DecodingKey, TokenData, Validation};
 use reqwest;
 use serde::{Deserialize, Serialize};
-use serde_json::{json, to_string, to_value, Value};
+use serde_json::{json, to_string, to_value, Map, Value};
 use sqlx::{mysql::*, FromRow, MySqlPool, Row};
+use std::collections::HashMap;
 use std::env;
 use tokio::sync::OnceCell;
 
@@ -44,9 +45,18 @@ struct Claims {
 }
 
 // Login Reponse From Stelleri API
+// Option 'message' is reserved for errors only.
 #[derive(Debug, Serialize, Deserialize)]
 struct LoginResponse {
     access_token: Option<String>,
+    message: Option<String>,
+}
+
+// Guild Picture From Stelleri API
+// Option 'message' is reserved for errors only.
+#[derive(Debug, Serialize, Deserialize)]
+struct GuildPictureResponse {
+    picture_urls: Option<Vec<String>>,
     message: Option<String>,
 }
 
@@ -136,16 +146,22 @@ async fn login(username: &str, password: &str) -> Result<Value, String> {
     if let Some(access_token) = parsed_response.access_token.as_deref() {
         // Decode Token
         let token = decode::<Claims>(
-            access_token,
+            &access_token,
             &DecodingKey::from_secret(env::var("JWT_TOKEN").unwrap().as_ref()),
             &Validation::default(),
         )
         .map_err(|e| format!("Failed to decode token: {:?}", e))?;
 
-        // Payload JSON
-        let mut claims_as_value: Value = to_value(&token.claims)
+        // Raw Response JSON
+        let mut claims: Value = to_value(&token.claims)
             .map_err(|e| format!("Failed to convert claims to JSON value: {:?}", e))?;
-        Ok(claims_as_value)
+
+        // Add Access Token
+        let mut fields = HashMap::new();
+        fields.insert("access_token".to_string(), access_token.to_string());
+        let modified_claims = merge(&claims, &fields);
+
+        Ok(modified_claims)
     } else if let Some(error_message) = parsed_response.message {
         Err(error_message)
     } else {
@@ -153,11 +169,71 @@ async fn login(username: &str, password: &str) -> Result<Value, String> {
     }
 }
 
+// Fetch Guild Picture
+#[tauri::command]
+async fn guild_picture(
+    token: &str,
+    snowflakes: Vec<String>,
+) -> Result<GuildPictureResponse, String> {
+    // Prepare Client
+    dotenv().ok();
+    let client = reqwest::Client::new();
+    let prefix: String = if env::var("TAURI_BUILD").is_ok() {
+        env::var("PRODUCTION_HTTP_PREFIX").unwrap()
+    } else {
+        env::var("DEVELOPMENT_HTTP_PREFIX").unwrap()
+    };
+
+    // Prepare Payload
+    let payload = json!(snowflakes);
+    let payload_ser = serde_json::to_string(&payload)
+        .map_err(|e| format!("Failed to serialize JSON payload: {:?}", e))?;
+
+    // Fetch Data
+    let response = client
+        .get(format!("{}/guilds/picture", prefix))
+        .header(reqwest::header::CONTENT_TYPE, "application/json")
+        .header(reqwest::header::AUTHORIZATION, format!("Bearer {}", token))
+        .body(payload_ser)
+        .send()
+        .await
+        .map_err(|e| format!("Request failed: {:?}", e))?
+        .text()
+        .await
+        .map_err(|e| format!("Failed to retrieve response body: {:?}", e))?;
+
+    // Full JSON
+    let parsed_response: GuildPictureResponse = serde_json::from_str(&response.as_str())
+        .map_err(|e| format!("JSON syntax error: {:?}", e))?;
+
+    if let Some(picture_urls) = parsed_response.picture_urls.as_deref() {
+        Ok(parsed_response)
+    } else if let Some(error_message) = parsed_response.message {
+        Err(error_message)
+    } else {
+        Err(String::from("Failed to serialize."))
+    }
+}
+
+// Merge JSON Keys
+fn merge(v: &Value, fields: &HashMap<String, String>) -> Value {
+    match v {
+        Value::Object(m) => {
+            let mut cloned_map = m.clone();
+            for (k, v) in fields {
+                cloned_map.insert(k.clone(), Value::String(v.clone()));
+            }
+            Value::Object(cloned_map)
+        }
+        _ => v.clone(),
+    }
+}
+
 // Entry Point
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_store::Builder::default().build())
-        .invoke_handler(tauri::generate_handler![fetch_guild, login])
+        .invoke_handler(tauri::generate_handler![fetch_guild, login, guild_picture])
         .run(tauri::generate_context!())
         .expect("Error while running Tauri application.");
 }

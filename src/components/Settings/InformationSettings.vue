@@ -13,7 +13,7 @@ export default {
 <template>
     <div class="content-container">
         <section class="settings-component">
-            <p class="header text-shadow">Server</p>
+            <p class="header bold text-shadow">Server</p>
             <div class="input-container">
                 <p class="input-label text-shadow">ID</p>
                 <input :value="this.guild.snowflake" type="text" disabled class="shadow input">
@@ -40,7 +40,7 @@ export default {
             </div>
         </section>
         <section class="settings-component">
-            <p class="header text-shadow">Dates</p>
+            <p class="header bold text-shadow">Dates</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Creation</p>
                 <input :value="new Date(this.guild.guild_date_creation).toLocaleString()" type="text" disabled
@@ -54,7 +54,7 @@ export default {
             </div>
         </section>
         <section class="settings-component">
-            <p class="header text-shadow">Operator</p>
+            <p class="header bold text-shadow">Operator</p>
             <div class="input-container">
                 <p class="input-label text-shadow">ID</p>
                 <input :value="this.guild.operator_id" type="text" disabled class="shadow input">

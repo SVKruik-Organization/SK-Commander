@@ -33,31 +33,37 @@ export default {
             }
 
             invoke("login", { username: username, password: password }).then((userData) => {
-                try {
-                    invoke("fetch_guild", { username: userData.operator_username }).then(async (rawGuildData) => {
-                        const guildData = JSON.parse(rawGuildData);
-                        this.$emit("login", userData, guildData);
+                invoke("fetch_guild", { username: userData.operator_username }).then(async (rawGuildData) => {
+                    const guilds = JSON.parse(rawGuildData);
+                    const snowflakes = [];
+                    for (let i = 0; i < guilds.length; i++) {
+                        snowflakes.push(guilds[i].snowflake)
+                    }
+                    invoke("guild_picture", { token: userData.access_token, snowflakes: snowflakes }).then((guildPictureData) => {
+                        if (guildPictureData.picture_urls) {
+                            for (let i = 0; i < guilds.length; i++) {
+                                guilds[i].icon = guildPictureData.picture_urls[i];
+                            }
+                        }
+                        this.$emit("login", userData, guilds);
                     }).catch((error) => {
                         console.error(error);
                         this.errorStatus = true;
-                        this.errorMessage = "Something went wrong while retrieving your information. Please try again later.";
+                        this.errorMessage = "Something went wrong while preparing your dashboard. Please try again later.";
                     });
-                } catch (error) {
+                }).catch((error) => {
                     console.error(error);
                     this.errorStatus = true;
-                    this.errorMessage = "Something went wrong while processing your information. Please try again later.";
-                }
+                    this.errorMessage = "Something went wrong while retrieving your information. Please try again later.";
+                });
             }).catch((error) => {
+                console.error(error);
+                this.errorStatus = true;
                 if (error === "Not Found") {
-                    this.errorStatus = true;
                     this.errorMessage = "This username does not exist.";
                 } else if (error === "Unauthorized") {
-                    this.errorStatus = true;
                     this.errorMessage = "Your username or password is incorrect.";
-                } else {
-                    this.errorStatus = true;
-                    this.errorMessage = "Something went wrong while signing in. Please try again later.";
-                }
+                } else this.errorMessage = "Something went wrong signing you in. Please try again later.";
             });
         }
     }
@@ -67,7 +73,7 @@ export default {
 <template>
     <div class="content">
         <section class="login-card">
-            <div class="header">
+            <div class="header bold">
                 <h2>Welcome back</h2>
                 <h5 class="sub-header">Sign in to continue</h5>
             </div>
@@ -77,8 +83,8 @@ export default {
                         <img src="../assets/images/gold.png" class="input-image">
                         <div class="input-content">
                             <i class="fa-solid fa-user faded-text"></i>
-                            <input placeholder="Username" autocomplete="username" id="username-input" class="text-input"
-                                type="text">
+                            <input placeholder="Username" autocomplete="username" id="username-input"
+                                class="text-input bold" type="text">
                         </div>
                     </div>
                     <div class="password-wrapper">
@@ -87,7 +93,7 @@ export default {
                             <div class="input-content">
                                 <i class="fa-solid fa-key faded-text"></i>
                                 <input placeholder="Password" autocomplete="current-password" id="password-input"
-                                    class="text-input" type="password">
+                                    class="text-input bold" type="password">
                             </div>
                         </div>
                         <router-link to="/"
@@ -98,7 +104,7 @@ export default {
                 <section class="submit-container">
                     <div class="input-wrapper">
                         <img src="../assets/images/gold.png" class="input-image">
-                        <button class="login-button" @click="this.login($event);">Login</button>
+                        <button class="login-button bold" @click="this.login($event);">Login</button>
                     </div>
                     <router-link to="/" @click="this.$emit('popup', 'warning', 'Registration is still WIP.', 4000)">Don't
                         have an account yet?</router-link>
@@ -216,15 +222,13 @@ form {
     width: 190px;
     background-color: transparent;
     color: var(--main);
-    font-size: medium;
+    font-size: var(--font-size-mid);
     text-transform: uppercase;
-    font-weight: 800;
 }
 
 input {
     width: 80%;
     color: var(--font);
-    font-weight: bold;
 }
 
 .submit-container,
@@ -242,6 +246,6 @@ input {
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-    font-size: small;
+    font-size: var(--font-size-small);
 }
 </style>

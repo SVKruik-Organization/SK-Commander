@@ -27,7 +27,7 @@ select {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 330px;
+    width: 370px;
     overflow-y: auto;
     height: 400px;
 }
@@ -41,7 +41,6 @@ select {
 
 .header {
     color: var(--accent);
-    font-weight: bold;
 }
 
 .input-container {

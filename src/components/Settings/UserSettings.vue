@@ -33,10 +33,10 @@ export default {
 <template>
     <div class="content-container">
         <section class="settings-component">
-            <p class="header text-shadow">Administrators</p>
+            <p class="header bold text-shadow">Administrators</p>
         </section>
         <section class="settings-component">
-            <p class="header text-shadow">Blocked</p>
+            <p class="header bold text-shadow">Blocked</p>
         </section>
     </div>
 </template>

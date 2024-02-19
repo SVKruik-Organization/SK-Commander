@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200;0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;0,6..12,900;0,6..12,1000;1,6..12,200;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700;1,6..12,800;1,6..12,900;1,6..12,1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
 
 /* Palette */
 :root {
@@ -11,6 +12,10 @@
 	--font-mid: #FFFFFF60;
 	--font-light: #FFFFFF10;
 
+	--font-size-normal: 15px;
+	--font-size-mid: 13px;
+	--font-size-small: 10px;
+
 	--border-radius-high: 15px;
 	--border-radius-mid: 10px;
 	--border-radius-low: 5px;
@@ -22,8 +27,9 @@
 	--danger: #D04848;
 }
 
+/* Global Styling */
 * {
-	font-family: 'Nunito Sans', sans-serif;
+	font-family: "Titillium Web", sans-serif;
 	font-weight: 300;
 	padding: 0;
 	margin: 0;
@@ -44,6 +50,7 @@ body {
 	overflow: hidden;
 }
 
+/* Continuous Rotating */
 @keyframes loading {
 	0% {
 		transform: rotate(0deg);
@@ -57,11 +64,11 @@ body {
 /* Custom Classes */
 .content-wrapper {
 	margin: auto;
-	margin-top: 10px;
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
-	width: 560px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 620px;
 }
 
 .content {
@@ -83,7 +90,7 @@ body {
 
 .loading-icon {
 	animation: loading 1s linear infinite;
-	font-size: 13px;
+	font-size: var(--font-size-mid);
 	color: var(--font-mid);
 	opacity: 0;
 }
@@ -112,17 +119,13 @@ body {
 	text-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
-.bold {
-	font-weight: bold;
-}
-
 .input {
 	width: 160px;
 	height: 25px;
 	border-radius: var(--border-radius-low);
 	background-color: var(--fill-mid);
 	border: 2px solid var(--font-light);
-	font-size: 12px;
+	font-size: var(--font-size-mid);
 }
 
 .error-page {
@@ -146,7 +149,7 @@ body {
 }
 
 .smaller {
-	font-size: 12px;
+	font-size: var(--font-size-mid);
 }
 
 .dot {
@@ -159,6 +162,12 @@ body {
 	display: flex;
 	align-items: center;
 	gap: 5px;
+}
+
+.ellipsis {
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Default HTML Tags */
@@ -178,7 +187,7 @@ ol {
 
 small,
 .small {
-	font-size: small;
+	font-size: var(--font-size-small);
 }
 
 h1,
@@ -186,8 +195,9 @@ h2,
 h3,
 h4,
 h5,
-h6 {
-	font-weight: 700;
+h6,
+.bold {
+	font-weight: 600;
 }
 
 h1 {
@@ -207,7 +217,7 @@ input {
 button {
 	background-color: var(--fill);
 	border: none;
-	font-size: 14px;
+	font-size: var(--font-size-normal);
 }
 
 select {
@@ -242,7 +252,7 @@ button:disabled {
 
 p,
 a {
-	font-size: 15px;
+	font-size: var(--font-size-normal);
 }
 
 /* Scrollbar */

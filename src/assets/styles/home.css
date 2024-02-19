@@ -1,0 +1,28 @@
+/* Tile Item */
+.tile {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: var(--fill);
+    border-radius: var(--border-radius-high);
+    height: 175px;
+    width: 100%;
+}
+
+.tile-large {
+    width: 305px;
+}
+
+.tile-mid {
+    width: 250px;
+}
+
+.tile-small {
+    width: 175px;
+}
+
+.tile-title {
+    color: var(--accent);
+}

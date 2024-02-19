@@ -7,6 +7,11 @@ export default {
     emits: [
         "logout"
     ],
+    created() {
+        if (!this.user) {
+            return this.$router.push("/unauthorized");
+        } else if (new Date(this.user.exp * 1000) < new Date()) return this.$router.push("/session-expired");
+    },
     mounted() {
         // Close Dropdown
         document.body.addEventListener("click", (event) => {
@@ -54,19 +59,19 @@ export default {
     <nav class="shadow">
         <section class="links-container">
             <div class="link-item">
-                <router-link class="link" to="/home">Home</router-link>
+                <router-link class="bold" to="/home">Home</router-link>
                 <span class="nav-indicator"></span>
             </div>
             <div class="link-item">
-                <router-link class="link" to="/settings/general">Settings</router-link>
+                <router-link class="bold" to="/settings/general">Settings</router-link>
                 <span class="nav-indicator"></span>
             </div>
             <div class="link-item">
-                <router-link class="link" to="/statistics">Statistics</router-link>
+                <router-link class="bold" to="/statistics">Statistics</router-link>
                 <span class="nav-indicator"></span>
             </div>
             <div class="link-item">
-                <router-link class="link" to="/operators">Operators</router-link>
+                <router-link class="bold" to="/operators">Operators</router-link>
                 <span class="nav-indicator"></span>
             </div>
         </section>
@@ -80,7 +85,7 @@ export default {
         <div class="dropdown-item">
             <div class="information-wrapper">
                 <h5 class="username">{{ this.user ? this.user.operator_username : 'Not Logged In' }}</h5>
-                <h6 class="tag">{{ this.user ? `@${this.user.user_username}` : 'Not Logged In' }}</h6>
+                <p class="tag">{{ this.user ? `@${this.user.user_username}` : 'Not Logged In' }}</p>
             </div>
         </div>
         <span class="splitter"></span>
@@ -91,11 +96,11 @@ export default {
         </div>
         <span class="splitter"></span>
         <div class="dropdown-item">
-            <router-link to="/plans" v-if="this.user.edition === 'Basic'" class="dropdown-link-wrapper dropdown-link">
+            <router-link to="/plans" v-if="this.user.edition === 'Basic'" class="dropdown-link-wrapper dropdown-link bold">
                 <h6 class="sign-out-text pointer">Upgrade Plan</h6>
                 <i class="fa-solid fa-arrow-up upgrade-icon pointer"></i>
             </router-link>
-            <div @click="this.$emit('logout');" class="dropdown-link-wrapper dropdown-link">
+            <div @click="this.$emit('logout');" class="dropdown-link-wrapper dropdown-link bold">
                 <h6 class="sign-out-text pointer">Sign Out</h6>
                 <i class="fa-solid fa-arrow-right-from-bracket sign-out-icon pointer"></i>
             </div>
@@ -128,10 +133,6 @@ nav {
     justify-content: space-between;
     width: 110px;
     margin-top: 15px;
-}
-
-.link {
-    font-weight: 700;
 }
 
 .nav-indicator {
@@ -199,7 +200,7 @@ nav {
 }
 
 .tag {
-    font-weight: normal;
+    font-size: var(--font-size-small);
 }
 
 .splitter {
@@ -208,15 +209,14 @@ nav {
 }
 
 .dropdown-link {
-    font-size: 12px;
+    font-size: var(--font-size-mid);
     box-sizing: border-box;
     padding: 2px 5px;
     border-radius: var(--border-radius-low);
 }
 
 .dropdown-link p {
-    font-size: 12px;
-    font-weight: bold;
+    font-size: var(--font-size-mid);
 }
 
 .upgrade-icon {
@@ -245,7 +245,7 @@ a:hover,
 }
 
 .sign-out-text {
-    font-size: 12px;
+    font-size: var(--font-size-mid);
 }
 
 .information-wrapper {

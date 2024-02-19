@@ -23,14 +23,14 @@ export default {
 
 <template>
     <div class="content">
-        <div class="content-wrapper">
+        <div class="content-wrapper shadow">
             <section class="settings-container">
                 <div class="menu-list">
-                    <router-link class="menu-item text-shadow" to="/preferences/account">Account</router-link>
+                    <router-link class="menu-item bold text-shadow" to="/preferences/account">Account</router-link>
                     <span class="splitter shadow"></span>
-                    <router-link class="menu-item text-shadow" to="/preferences/application">Application</router-link>
+                    <router-link class="menu-item bold text-shadow" to="/preferences/application">Application</router-link>
                     <span class="splitter shadow"></span>
-                    <router-link class="menu-item text-shadow" to="/preferences/links">Links</router-link>
+                    <router-link class="menu-item bold text-shadow" to="/preferences/links">Links</router-link>
                 </div>
                 <span class="splitter-accent"></span>
                 <router-view :guilds="this.guilds" :user="this.user" @popUpTransfer="this.popUpTransfer"></router-view>

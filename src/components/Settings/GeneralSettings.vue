@@ -33,7 +33,7 @@ export default {
 <template>
     <div class="content-container">
         <section class="settings-component">
-            <p class="header text-shadow">Channel IDs</p>
+            <p class="header bold text-shadow">Channel IDs</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Admin</p>
                 <div class="input-wrapper">
@@ -81,7 +81,7 @@ export default {
             </div>
         </section>
         <section class="settings-component">
-            <p class="header text-shadow">Roles</p>
+            <p class="header bold text-shadow">Roles</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Blinded ID</p>
                 <div class="input-wrapper">
@@ -93,7 +93,7 @@ export default {
             </div>
         </section>
         <section class="settings-component">
-            <p class="header text-shadow">Other</p>
+            <p class="header bold text-shadow">Other</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Welcome Message</p>
                 <div class="input-wrapper">

@@ -49,20 +49,20 @@ export default {
                     <i class="fa-solid fa-caret-down select-icon"></i>
                 </div>
             </section>
-            <div class="settings-container-wrapper">
+            <div class="settings-container-wrapper shadow">
                 <div class="information-icon-wrapper" @click="this.$emit('toggleInformationOverlay');"><i
                         class="fa-solid fa-circle-info information-icon"></i></div>
                 <section class="settings-container">
                     <div class="menu-list">
-                        <router-link class="menu-item text-shadow" to="/settings/general">General</router-link>
+                        <router-link class="menu-item bold text-shadow" to="/settings/general">General</router-link>
                         <span class="splitter shadow"></span>
-                        <router-link class="menu-item text-shadow" to="/settings/economy">Economy</router-link>
+                        <router-link class="menu-item bold text-shadow" to="/settings/economy">Economy</router-link>
                         <span class="splitter shadow"></span>
-                        <router-link class="menu-item text-shadow" to="/settings/level">Level</router-link>
+                        <router-link class="menu-item bold text-shadow" to="/settings/level">Level</router-link>
                         <span class="splitter shadow"></span>
-                        <router-link class="menu-item text-shadow" to="/settings/users">Users</router-link>
+                        <router-link class="menu-item bold text-shadow" to="/settings/users">Users</router-link>
                         <span class="splitter shadow"></span>
-                        <router-link class="menu-item text-shadow" to="/settings/information">Information</router-link>
+                        <router-link class="menu-item bold text-shadow" to="/settings/information">Information</router-link>
                     </div>
                     <span class="splitter-accent"></span>
                     <router-view :guild="this.activeGuild" :user="this.user"></router-view>
@@ -72,4 +72,31 @@ export default {
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+/* Server Selection */
+.select-container {
+    display: flex;
+    gap: 10px;
+}
+
+/* Settings */
+.settings-container-wrapper {
+    background-color: var(--fill);
+    border-radius: var(--border-radius-high);
+    height: 440px;
+    box-sizing: border-box;
+    padding: 0 0 35px 35px;
+    position: relative;
+}
+
+.information-icon-wrapper {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.information-icon {
+    color: var(--accent);
+    cursor: pointer;
+}
+</style>

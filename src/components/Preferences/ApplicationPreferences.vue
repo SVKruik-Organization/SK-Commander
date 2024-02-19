@@ -51,14 +51,14 @@ export default {
 <template>
     <div class="content-container">
         <section class="settings-component">
-            <p class="header text-shadow">Notifications</p>
+            <p class="header bold text-shadow">Notifications</p>
             <div class="setting-item">
                 <p class="setting-name">Update Available</p>
                 <input @change="this.unlockButton()" type="checkbox">
             </div>
         </section>
         <section class="settings-component">
-            <p class="header text-shadow">Appearance</p>
+            <p class="header bold text-shadow">Appearance</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Theme</p>
                 <div class="input-wrapper">
@@ -87,7 +87,7 @@ export default {
             </div>
         </section>
         <section class="settings-component">
-            <p class="header text-shadow">Information</p>
+            <p class="header bold text-shadow">Information</p>
             <div class="setting-item">
                 <p class="setting-name">Version</p>
                 <p>{{ this.version }}</p>

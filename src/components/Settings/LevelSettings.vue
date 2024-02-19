@@ -36,7 +36,7 @@ export default {
 <template>
     <div class="content-container">
         <section class="settings-component">
-            <p class="header text-shadow">Level Role</p>
+            <p class="header bold text-shadow">Level Role</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Position</p>
                 <div class="input-wrapper">
@@ -82,7 +82,7 @@ export default {
             </div>
         </section>
         <section class="settings-component">
-            <p class="header text-shadow">Rewards</p>
+            <p class="header bold text-shadow">Rewards</p>
             <div class="input-container">
                 <p class="input-label text-shadow">Normal Message</p>
                 <div class="input-wrapper">
