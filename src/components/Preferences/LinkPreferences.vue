@@ -24,11 +24,11 @@ export default {
         </section>
         <section class="settings-component">
             <p class="header bold text-shadow">Source Code</p>
-            <a href="https://github.com/SVKruik/bot-config-ui" target="_blank" class="setting-item">
+            <a href="https://github.com/SVKruik-Organization/Bot-Commander" target="_blank" class="setting-item">
                 <p class="link-text">Bot Commander Repository</p>
                 <i class="fa-solid fa-code-branch link-icon"></i>
             </a>
-            <a href="https://github.com/SVKruik/Discord-Bots-v2" target="_blank" class="setting-item">
+            <a href="https://github.com/SVKruik-Organization/Discord-Bots" target="_blank" class="setting-item">
                 <p class="link-text">Discord Bots Repository</p>
                 <i class="fa-solid fa-code-branch link-icon"></i>
             </a>

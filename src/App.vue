@@ -20,7 +20,7 @@ export default {
 	methods: {
 		/**
 		 * Setup the user account.
-		 * @param {Object} user User Object From the Stelleri API.
+		 * @param {Object} user User Object From the Apricaria API.
 		 * @param {Array} guilds The Guilds this operator controls.
 		 */
 		login(user, guilds) {

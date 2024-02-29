@@ -44,7 +44,7 @@ struct Claims {
     iat: usize,
 }
 
-// Login Reponse From Stelleri API
+// Login Reponse From Apricaria API
 // Option 'message' is reserved for errors only.
 #[derive(Debug, Serialize, Deserialize)]
 struct LoginResponse {
@@ -52,7 +52,7 @@ struct LoginResponse {
     message: Option<String>,
 }
 
-// Guild Picture From Stelleri API
+// Guild Picture From Apricaria API
 // Option 'message' is reserved for errors only.
 #[derive(Debug, Serialize, Deserialize)]
 struct GuildPictureResponse {

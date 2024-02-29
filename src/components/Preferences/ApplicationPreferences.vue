@@ -109,10 +109,10 @@ export default {
                             updates</button>
                     </div>
                     <i class="fa-solid fa-circle faded-text dot"></i>
-                    <a href="https://github.com/SVKruik/bot-config-ui/releases" class="faded-text smaller"
+                    <a href="https://github.com/SVKruik-Organization/Bot-Commander/releases" class="faded-text smaller"
                         target="_blank">Release Notes</a>
                     <i class="fa-solid fa-circle faded-text dot"></i>
-                    <a href="https://github.com/SVKruik/bot-config-ui/releases" class="faded-text smaller"
+                    <a href="https://github.com/SVKruik-Organization/Bot-Commander/releases" class="faded-text smaller"
                         target="_blank">Bèta
                         Version</a>
                 </div>
