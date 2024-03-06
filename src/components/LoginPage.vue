@@ -106,8 +106,9 @@ export default {
                         <img src="../assets/images/gold.png" class="input-image">
                         <button class="login-button bold" @click="this.login($event);">Login</button>
                     </div>
-                    <router-link to="/" @click="this.$emit('popup', 'warning', 'Registration is still WIP.', 4000)">Don't
-                        have an account yet?</router-link>
+                    <router-link to="/"
+                        @click="this.$emit('popup', 'warning', 'Registration is still WIP.', 4000)">
+                        Don't have an account yet?</router-link>
                 </section>
             </form>
         </section>

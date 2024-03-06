@@ -30,9 +30,7 @@ async fn get_pool() -> &'static MySqlPool {
 #[derive(Debug, Serialize, Deserialize)]
 struct Claims {
     id: u32,
-    owner_snowflake: Option<String>,
     snowflake: String,
-    edition: String,
     operator_username: String,
     user_username: String,
     email: String,
@@ -64,10 +62,10 @@ struct GuildPictureResponse {
 #[derive(Debug, sqlx::FromRow, Default, serde::Serialize)]
 struct Guild {
     snowflake: String,
-    operator_id: Option<String>,
-    operator_name: Option<String>,
+    team_tag: String,
     name: String,
     channel_admin: Option<String>,
+    channel_broadcast: Option<String>,
     channel_event: Option<String>,
     channel_suggestion: Option<String>,
     channel_snippet: Option<String>,
@@ -75,6 +73,7 @@ struct Guild {
     role_blinded: Option<String>,
     locale: String,
     disabled: bool,
+    production: bool,
     guild_date_creation: chrono::DateTime<chrono::Utc>,
     guild_date_update: Option<chrono::DateTime<chrono::Utc>>,
     xp15: u32,
@@ -96,7 +95,7 @@ struct Guild {
 // Fetch specific Guild
 #[tauri::command]
 async fn fetch_guild(username: String) -> Result<String, String> {
-    let query = sqlx::query_as::<_, Guild>("SELECT guild.*, guild_settings.* FROM operator LEFT JOIN guild ON guild.operator_id = operator.snowflake LEFT JOIN guild_settings ON guild.snowflake = guild_settings.guild_snowflake WHERE username = ?;").bind(username);
+    let query = sqlx::query_as::<_, Guild>("SELECT guild.*, guild_settings.* FROM operator_team LEFT JOIN guild ON guild.team_tag = operator_team.team_tag LEFT JOIN guild_settings ON guild_settings.guild_snowflake = guild.snowflake LEFT JOIN operator_member ON operator_member.team_tag = operator_team.team_tag LEFT JOIN operator ON operator.snowflake = operator_member.snowflake WHERE username = ? AND guild.snowflake IS NOT NULL;").bind(username);
     let guild: Vec<Guild> = match query.fetch_all(get_pool().await).await {
         Ok(result) => result,
         Err(e) => return Err(format!("Failed to fetch Guild: {:?}", e)),
