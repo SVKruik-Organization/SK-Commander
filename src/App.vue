@@ -50,7 +50,7 @@ export default {
 		 */
 		popup(type, content, time) {
 			const id = `popup${createTicket()}`;
-			const childComponenet = this.$refs.notificationPopup;
+			const childComponent = this.$refs.notificationPopup;
 			this.pendingPopups.push({
 				"id": id,
 				"color": `var(--${type})`,
@@ -58,11 +58,11 @@ export default {
 			});
 
 			setTimeout(() => {
-				if (childComponenet) childComponenet.fadeIn(id);
+				if (childComponent) childComponent.fadeIn(id);
 			}, 10);
 
 			setTimeout(() => {
-				if (childComponenet) childComponenet.closePopup(id);
+				if (childComponent) childComponent.closePopup(id);
 			}, time);
 		}
 	}
@@ -70,7 +70,8 @@ export default {
 </script>
 
 <template>
-	<NotificationPopup ref="notificationPopup" :pendingPopups="this.pendingPopups" v-if="!this.popUpForbidden.includes(this.$route.path)">
+	<NotificationPopup ref="notificationPopup" :pendingPopups="this.pendingPopups"
+		v-if="!this.popUpForbidden.includes(this.$route.path)">
 	</NotificationPopup>
 	<InformationOverlay v-if="this.informationOverlayStatus"
 		@toggleInformationOverlay="this.informationOverlayStatus = !this.informationOverlayStatus"></InformationOverlay>

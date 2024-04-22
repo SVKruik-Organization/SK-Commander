@@ -1,12 +1,9 @@
 <script lang='js'>
 export default {
-    name: "SessionExpiredPage",
+    name: "NotificationPopup",
     props: {
         pendingPopups: Array
     },
-    emits: [
-        "logout"
-    ],
     methods: {
         /**
          * Close a active popup.
@@ -90,7 +87,6 @@ export default {
 }
 
 .color-indicator {
-    background-color: cornflowerblue;
     height: 100%;
     width: 5px;
     border-top-left-radius: var(--border-radius-low);
