@@ -12,24 +12,25 @@ export default {
     <div class="content-container">
         <section class="settings-component">
             <p class="header bold text-shadow">Resources</p>
-            <a href="https://github.com/SVKruik" target="_blank" class="setting-item">
+            <a href="https://platform.stefankruik.com/documentation/read/Doc/Community/Links" target="_blank"
+                class="setting-item">
                 <p class="link-text">Discord Community</p>
                 <i class="fa-brands fa-discord link-icon"></i>
             </a>
-            <a href="mailto:stefan.kruik@stefankruik.com?subject=Bot%20Commander%20Support&body=Use%20this%20email%20to%20contact%20support%20or%20for%20questions.%20When%20you%20need%20support%20with%20your%20account%2C%20please%20include%20your%20service%20tag%20%26%20username."
-                target="_blank" class="setting-item">
-                <p class="link-text">Email Support</p>
+            <a href="https://platform.stefankruik.com/documentation/read/Doc/Community/Support" target="_blank"
+                class="setting-item">
+                <p class="link-text">Support</p>
                 <i class="fa-solid fa-envelope link-icon"></i>
             </a>
         </section>
         <section class="settings-component">
             <p class="header bold text-shadow">Source Code</p>
-            <a href="https://github.com/SVKruik-Organization/Bot-Commander" target="_blank" class="setting-item">
-                <p class="link-text">Bot Commander Repository</p>
+            <a href="https://github.com/SVKruik-Organization/SK-Commander" target="_blank" class="setting-item">
+                <p class="link-text">SK Commander Repository</p>
                 <i class="fa-solid fa-code-branch link-icon"></i>
             </a>
-            <a href="https://github.com/SVKruik-Organization/Discord-Bots" target="_blank" class="setting-item">
-                <p class="link-text">Discord Bots Repository</p>
+            <a href="https://github.com/SVKruik-Organization/SK-Bots" target="_blank" class="setting-item">
+                <p class="link-text">SK Bots Repository</p>
                 <i class="fa-solid fa-code-branch link-icon"></i>
             </a>
             <a href="https://github.com/SVKruik" target="_blank" class="setting-item">

@@ -4,7 +4,7 @@ version = "1.0.0"
 description = "Bot Configuration Interface"
 authors = ["Stefan Kruik"]
 license = "Apache-2.0"
-repository = "https://github.com/SVKruik-Organization/Bot-Commander"
+repository = "https://github.com/SVKruik-Organization/SK-Commander"
 edition = "2021"
 
 [build-dependencies]

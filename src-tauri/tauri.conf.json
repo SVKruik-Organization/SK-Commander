@@ -6,7 +6,7 @@
 		"distDir": "../dist"
 	},
 	"package": {
-		"productName": "Bot Commander",
+		"productName": "SK Commander",
 		"version": "1.0.0"
 	},
 	"tauri": {
@@ -35,7 +35,7 @@
 			{
 				"fullscreen": false,
 				"resizable": false,
-				"title": "Bot Commander",
+				"title": "SK Commander",
 				"width": 800,
 				"height": 600
 			}
